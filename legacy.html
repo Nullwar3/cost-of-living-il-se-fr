@@ -1,13 +1,13 @@
 <!doctype html>
-<html lang="en" id="root">
+<html lang="en">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>The Price of Life — Israel · Sweden · France · Russia · 2024–2025</title>
+<title>The Price of Life — Israel · Sweden · France · 2024–2025</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,700;9..144,900&family=Newsreader:opsz,wght@6..72,300;6..72,500;6..72,700&family=Manrope:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,700;9..144,900&family=Manrope:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 
@@ -24,22 +24,14 @@
     --il: #14b8a6;   /* teal */
     --se: #f5b400;   /* warm gold */
     --fr: #d6342f;   /* claret */
-    --ru: #a78bfa;   /* slate violet */
-    --sk: #fb923c;   /* warm orange */
 
     --il-glow: rgba(20,184,166,.18);
     --se-glow: rgba(245,180,0,.16);
     --fr-glow: rgba(214,52,47,.18);
-    --ru-glow: rgba(167,139,250,.18);
-    --sk-glow: rgba(251,146,60,.18);
 
     --serif: 'Fraunces', 'Times New Roman', serif;
     --sans: 'Manrope', system-ui, sans-serif;
     --mono: 'JetBrains Mono', monospace;
-  }
-
-  :root[lang="ru"] {
-    --serif: 'Newsreader', 'PT Serif', 'Times New Roman', serif;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -48,9 +40,7 @@
     background-image:
       radial-gradient(ellipse at top, rgba(20,184,166,.04) 0%, transparent 50%),
       radial-gradient(ellipse at 80% 30%, rgba(245,180,0,.03) 0%, transparent 50%),
-      radial-gradient(ellipse at 20% 70%, rgba(214,52,47,.03) 0%, transparent 50%),
-      radial-gradient(ellipse at 70% 90%, rgba(167,139,250,.03) 0%, transparent 50%),
-      radial-gradient(ellipse at 30% 40%, rgba(251,146,60,.03) 0%, transparent 50%);
+      radial-gradient(ellipse at 20% 70%, rgba(214,52,47,.03) 0%, transparent 50%);
   }
 
   .wrap { max-width: 1240px; margin: 0 auto; padding: 0 32px; }
@@ -110,8 +100,8 @@
   /* VERDICT CARDS */
   .verdict-grid {
     display: grid;
-    grid-template-columns: repeat(var(--active, 5), 1fr);
-    gap: 12px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
   }
   .verdict {
     background: var(--paper);
@@ -128,8 +118,6 @@
   .verdict.il { --accent: var(--il); }
   .verdict.se { --accent: var(--se); }
   .verdict.fr { --accent: var(--fr); }
-  .verdict.ru { --accent: var(--ru); }
-  .verdict.sk { --accent: var(--sk); }
   .verdict .flag {
     font-family: var(--mono);
     font-size: 11px;
@@ -141,14 +129,11 @@
   .verdict h3 {
     font-family: var(--serif);
     font-weight: 500;
-    font-size: 22px;
+    font-size: 32px;
     line-height: 1.05;
-    margin-bottom: 14px;
+    margin-bottom: 18px;
     letter-spacing: -0.01em;
   }
-  .verdict { padding: 22px 20px 26px; }
-  .verdict p { font-size: 13.5px; margin-bottom: 16px; }
-  .verdict .score .big { font-size: 38px; }
   .verdict p {
     font-size: 14.5px;
     color: var(--ink-dim);
@@ -162,7 +147,7 @@
   }
   .verdict .score .big {
     font-family: var(--serif);
-    font-size: 44px; font-weight: 500;
+    font-size: 56px; font-weight: 500;
     color: var(--accent);
     line-height: 1;
     letter-spacing: -0.04em;
@@ -273,9 +258,6 @@
   table.data .il { color: var(--il); }
   table.data .se { color: var(--se); }
   table.data .fr { color: var(--fr); }
-  table.data .ru { color: var(--ru); }
-  table.data .sk { color: var(--sk); }
-  table.data th[data-country].hidden, table.data td[data-country].hidden { display: none; }
   table.data tr:last-child td { border-bottom: none; }
   table.data .total td { font-weight: 700; border-top: 1px solid var(--ink-dim); padding-top: 18px; }
 
@@ -304,8 +286,6 @@
   .pull blockquote .il { color: var(--il); }
   .pull blockquote .se { color: var(--se); }
   .pull blockquote .fr { color: var(--fr); }
-  .pull blockquote .ru { color: var(--ru); }
-  .pull blockquote .sk { color: var(--sk); }
   .pull cite {
     display: block;
     margin-top: 28px;
@@ -320,8 +300,8 @@
   /* BIG STATS */
   .stat-row {
     display: grid;
-    grid-template-columns: repeat(var(--active, 5), 1fr);
-    gap: 14px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
     margin-bottom: 28px;
   }
   .stat {
@@ -340,10 +320,6 @@
   .stat.il { --accent: var(--il); }
   .stat.se { --accent: var(--se); }
   .stat.fr { --accent: var(--fr); }
-  .stat.ru { --accent: var(--ru); }
-  .stat.sk { --accent: var(--sk); }
-  .stat { padding: 22px 20px; }
-  .stat .num { font-size: 38px; }
   .stat .ctry {
     font-family: var(--mono);
     font-size: 11px;
@@ -371,18 +347,17 @@
   /* FREE-SERVICES TABLE */
   .free-grid {
     display: grid;
-    grid-template-columns: 220px repeat(var(--active, 5), 1fr);
+    grid-template-columns: 280px repeat(3, 1fr);
     background: var(--paper);
     border: 1px solid var(--line);
   }
   .free-grid > div {
-    padding: 18px 16px;
+    padding: 22px 24px;
     border-right: 1px solid var(--line);
     border-bottom: 1px solid var(--line);
-    font-size: 12.5px;
+    font-size: 13.5px;
   }
-  .free-grid > div.last-col { border-right: none; }
-  .free-grid > div[data-country].hidden { display: none; }
+  .free-grid > div:nth-child(4n) { border-right: none; }
   .free-grid .head {
     font-family: var(--mono);
     font-size: 10px;
@@ -394,8 +369,6 @@
   .free-grid .head.il { color: var(--il); }
   .free-grid .head.se { color: var(--se); }
   .free-grid .head.fr { color: var(--fr); }
-  .free-grid .head.ru { color: var(--ru); }
-  .free-grid .head.sk { color: var(--sk); }
   .free-grid .row-label { color: var(--ink); font-weight: 600; background: var(--paper-2); }
   .free-grid .free {
     color: var(--ink);
@@ -418,7 +391,7 @@
   /* TAKEAWAYS / SUMMARY */
   .takeaways {
     display: grid;
-    grid-template-columns: repeat(var(--active, 5), 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 0;
     background: var(--paper);
     border: 1px solid var(--line);
@@ -437,11 +410,6 @@
   .takeaway.il { --accent: var(--il); }
   .takeaway.se { --accent: var(--se); }
   .takeaway.fr { --accent: var(--fr); }
-  .takeaway.ru { --accent: var(--ru); }
-  .takeaway.sk { --accent: var(--sk); }
-  .takeaway { padding: 28px 22px; }
-  .takeaway .rank { font-size: 64px; }
-  .takeaway .ctry-name { font-size: 24px; }
   .takeaway .rank {
     font-family: var(--serif);
     font-size: 80px;
@@ -595,8 +563,6 @@
   .range-row.il { --accent: var(--il); }
   .range-row.se { --accent: var(--se); }
   .range-row.fr { --accent: var(--fr); }
-  .range-row.ru { --accent: var(--ru); }
-  .range-row.sk { --accent: var(--sk); }
   .range-bar {
     position: relative;
     height: 38px;
@@ -641,14 +607,9 @@
   .range-row.il .range-bar .seg, .range-row.il .range-bar .dot { background-color: var(--il); }
   .range-row.se .range-bar .seg, .range-row.se .range-bar .dot { background-color: var(--se); }
   .range-row.fr .range-bar .seg, .range-row.fr .range-bar .dot { background-color: var(--fr); }
-  .range-row.ru .range-bar .seg, .range-row.ru .range-bar .dot { background-color: var(--ru); }
-  .range-row.sk .range-bar .seg, .range-row.sk .range-bar .dot { background-color: var(--sk); }
   .range-row.il { --accent-glow: var(--il-glow); }
   .range-row.se { --accent-glow: var(--se-glow); }
   .range-row.fr { --accent-glow: var(--fr-glow); }
-  .range-row.ru { --accent-glow: var(--ru-glow); }
-  .range-row.sk { --accent-glow: var(--sk-glow); }
-  [data-country].hidden { display: none !important; }
   .range-row .gini {
     font-family: var(--mono);
     font-size: 12px;
@@ -685,8 +646,6 @@
   .burden-row.il { --accent: var(--il); }
   .burden-row.se { --accent: var(--se); }
   .burden-row.fr { --accent: var(--fr); }
-  .burden-row.ru { --accent: var(--ru); }
-  .burden-row.sk { --accent: var(--sk); }
   .burden-bar {
     height: 28px;
     background: var(--paper-2);
@@ -727,125 +686,10 @@
   }
   .burden-row.over .pct { color: var(--fr); }
 
-  /* COUNTRY FILTER */
-  .country-filter {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    background: rgba(12, 12, 14, 0.94);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--line);
-    padding: 14px 0;
-    margin: 0 -32px 0 -32px;
-  }
-  .country-filter-inner {
-    max-width: 1240px;
-    margin: 0 auto;
-    padding: 0 32px;
-    display: flex;
-    gap: 8px;
-    align-items: center;
-    flex-wrap: wrap;
-    font-family: var(--mono);
-  }
-  .country-filter .lbl {
-    font-size: 10px;
-    letter-spacing: .22em;
-    text-transform: uppercase;
-    color: var(--ink-dim);
-    margin-right: 10px;
-  }
-  .filter-pill {
-    background: transparent;
-    border: 1px solid var(--line);
-    color: var(--ink-dim);
-    padding: 7px 14px;
-    font-family: var(--mono);
-    font-size: 11px;
-    letter-spacing: .14em;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: all 0.14s ease;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .filter-pill::before {
-    content: '';
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: var(--accent, var(--ink-faint));
-    transition: all 0.14s ease;
-  }
-  .filter-pill.active {
-    color: var(--ink);
-    border-color: var(--accent);
-    background: rgba(255,255,255,0.02);
-  }
-  .filter-pill.active::before {
-    box-shadow: 0 0 0 3px rgba(255,255,255,0.04);
-  }
-  .filter-pill:not(.active)::before {
-    background: var(--ink-faint);
-  }
-  .filter-pill:not(.active) {
-    opacity: 0.55;
-  }
-  .filter-pill:hover {
-    opacity: 1;
-    color: var(--ink);
-  }
-  .filter-pill.il { --accent: var(--il); }
-  .filter-pill.se { --accent: var(--se); }
-  .filter-pill.fr { --accent: var(--fr); }
-  .filter-pill.ru { --accent: var(--ru); }
-  .filter-pill.sk { --accent: var(--sk); }
-  .filter-reset {
-    background: transparent;
-    border: none;
-    color: var(--ink-dim);
-    font-family: var(--mono);
-    font-size: 10px;
-    letter-spacing: .14em;
-    text-transform: uppercase;
-    cursor: pointer;
-    padding: 7px 10px;
-    margin-left: auto;
-  }
-  .filter-reset:hover { color: var(--ink); }
-
-  .lang-switch {
-    display: inline-flex;
-    border: 1px solid var(--line);
-    margin-left: 14px;
-  }
-  .lang-btn {
-    background: transparent;
-    border: none;
-    color: var(--ink-dim);
-    font-family: var(--mono);
-    font-size: 10px;
-    letter-spacing: .18em;
-    text-transform: uppercase;
-    padding: 7px 12px;
-    cursor: pointer;
-    transition: all 0.14s ease;
-    text-decoration: none;
-    display: inline-block;
-  }
-  .lang-btn.active {
-    background: var(--ink);
-    color: var(--bg);
-  }
-  .lang-btn:not(.active):hover { color: var(--ink); }
-
   /* MEDIA */
   @media (max-width: 980px) {
     .ch-head { grid-template-columns: 1fr; gap: 18px; }
     .verdict-grid, .stat-row, .takeaways { grid-template-columns: 1fr; }
-    .verdict h3 { font-size: 28px; }
     .takeaway { border-right: none; border-bottom: 1px solid var(--line); }
     .free-grid { grid-template-columns: 1fr; }
     .free-grid > div { border-right: none; }
@@ -859,86 +703,50 @@
 <div class="wrap">
 
 <header class="masthead">
-  <div class="brand" data-i18n="masthead.brand">A QUANTITATIVE BRIEFING</div>
+  <div class="brand">A QUANTITATIVE BRIEFING</div>
   <div class="meta">
-    <span data-i18n="masthead.year">2024–2025 figures</span>
-    <span data-i18n="masthead.currency">All values in EUR (€)</span>
-    <span data-i18n="masthead.issue">Issue 02</span>
+    <span>2024–2025 figures</span>
+    <span>All values in EUR (€)</span>
+    <span>Issue 01</span>
   </div>
 </header>
 
-<div class="country-filter">
-  <div class="country-filter-inner">
-    <span class="lbl" data-i18n="filter.compare">Compare</span>
-    <button class="filter-pill il active" data-toggle="il" data-i18n="country.il">Israel</button>
-    <button class="filter-pill se active" data-toggle="se" data-i18n="country.se">Sweden</button>
-    <button class="filter-pill fr active" data-toggle="fr" data-i18n="country.fr">France</button>
-    <button class="filter-pill ru active" data-toggle="ru" data-i18n="country.ru">Russia</button>
-    <button class="filter-pill sk active" data-toggle="sk" data-i18n="country.sk">Slovakia</button>
-    <button class="filter-reset" data-reset data-i18n="filter.reset">Reset</button>
-    <div class="lang-switch" role="group" aria-label="Language">
-      <a class="lang-btn active" href="./">EN</a>
-      <a class="lang-btn" href="ru.html">RU</a>
-    </div>
-  </div>
-</div>
-
 <!-- HERO -->
 <section class="hero">
-  <div class="kicker" data-i18n="hero.kicker">Cost of living · Income · Inequality</div>
-  <h1 data-i18n="hero.title">The Price of <em>Life</em>.<br/>Five countries,<br/>one currency.</h1>
-  <p class="standfirst" data-i18n="hero.standfirst">
-    A side-by-side reckoning of what it costs to live in <strong>Israel</strong>, <strong>Sweden</strong>, <strong>France</strong>, <strong>Russia</strong> and <strong>Slovakia</strong> — and what those countries pay you in return. Everything below is normalized to <strong>euros</strong>, weighted against median net income, and benchmarked against authoritative sources (OECD, Eurostat, INSEE, CBS, SCB, Rosstat, ŠÚ SR, Numbeo, The Economist). Slovakia is the new entrant: euro-using, EU-member, with the lowest income inequality in the entire EU and the seventh-heaviest tax wedge in the OECD — a useful mid-point against which the others reveal their extremes. Use the filter above to toggle countries in and out of every chart below.
+  <div class="kicker">Cost of living · Income · Inequality</div>
+  <h1>The Price of <em>Life</em>.<br/>Three countries,<br/>one currency.</h1>
+  <p class="standfirst">
+    A side-by-side reckoning of what it costs to live in <strong>Israel</strong>, <strong>Sweden</strong> and <strong>France</strong> — and what those countries pay you in return. Everything below is normalized to <strong>euros</strong>, weighted against median net income, and benchmarked against authoritative sources (OECD, Eurostat, INSEE, CBS, SCB, Numbeo, The Economist). The answers are sharper than the conventional wisdom — and they hinge less on raw price levels than on what the state quietly takes off your plate.
   </p>
 
   <div class="verdict-grid">
-    <article class="verdict il" data-country="il">
-      <div class="flag" data-i18n="v.il.flag">Israel · Tel Aviv</div>
-      <h3 data-i18n="v.il.h3">Two countries in one currency.</h3>
-      <p data-i18n="v.il.p">A tech worker in Tel Aviv earns 3.5× the national median gross wage (and over 4× the median <em>net</em>); a teacher earns less than the median rent. Housing alone — a 1BR in central Tel Aviv at €1,900 — consumes <strong style="color:var(--ink)">≈103%</strong> of the median take-home pay.</p>
+    <article class="verdict il">
+      <div class="flag">Israel · Tel Aviv</div>
+      <h3>Two countries in one currency.</h3>
+      <p>A tech worker in Tel Aviv earns 3.5× the national median gross wage (and over 4× the median <em>net</em>); a teacher earns less than the median rent. Housing alone — a 1BR in central Tel Aviv at €1,900 — consumes <strong style="color:var(--ink)">≈103%</strong> of the median take-home pay.</p>
       <div class="score">
         <div class="big">148%</div>
-        <div class="lbl" data-i18n="v.score-label">rent + basics<br/>÷ median net</div>
+        <div class="lbl">rent + basics<br/>÷ median net</div>
       </div>
     </article>
 
-    <article class="verdict se" data-country="se">
-      <div class="flag" data-i18n="v.se.flag">Sweden · Stockholm</div>
-      <h3 data-i18n="v.se.h3">High taxes hide a low real bill.</h3>
-      <p data-i18n="v.se.p">Headline tax wedge is 41%, VAT is 25% — but childcare is capped at €155 (Jan 2025 maxtaxa), university is free, and the healthcare ceiling is €122 per <em>year</em>. The "free" stuff dwarfs the visible cost.</p>
+    <article class="verdict se">
+      <div class="flag">Sweden · Stockholm</div>
+      <h3>High taxes hide a low real bill.</h3>
+      <p>Headline tax wedge is 41%, VAT is 25% — but childcare is capped at €155 (Jan 2025 maxtaxa), university is free, and the healthcare ceiling is €122 per <em>year</em>. The "free" stuff dwarfs the visible cost.</p>
       <div class="score">
         <div class="big">70%</div>
-        <div class="lbl" data-i18n="v.score-label">rent + basics<br/>÷ median net</div>
+        <div class="lbl">rent + basics<br/>÷ median net</div>
       </div>
     </article>
 
-    <article class="verdict fr" data-country="fr">
-      <div class="flag" data-i18n="v.fr.flag">France · Paris</div>
-      <h3 data-i18n="v.fr.h3">The middle of every chart.</h3>
-      <p data-i18n="v.fr.p">Highest PPP wages of the five, one of the heaviest tax wedges in the OECD (second only to Belgium), and a structurally cheap public sector — €178/year for a university degree, €88.80 for the Navigo monthly pass.</p>
+    <article class="verdict fr">
+      <div class="flag">France · Paris</div>
+      <h3>The middle of every chart.</h3>
+      <p>Highest PPP wages of the three, one of the heaviest tax wedges in the OECD (second only to Belgium), and a structurally cheap public sector — €178/year for a university degree, €88.80 for the Navigo monthly pass.</p>
       <div class="score">
         <div class="big">101%</div>
-        <div class="lbl" data-i18n="v.score-label">rent + basics<br/>÷ median net</div>
-      </div>
-    </article>
-
-    <article class="verdict ru" data-country="ru">
-      <div class="flag" data-i18n="v.ru.flag">Russia · Moscow</div>
-      <h3 data-i18n="v.ru.h3">Cheap in euros, brutal in rubles.</h3>
-      <p data-i18n="v.ru.p">A Big Hit costs €1.85; a Troika metro pass €20; groceries €140 — the lowest prices of the five. But the median net salary is €491, so a 1BR in Moscow center alone eats <strong style="color:var(--ink)">≈149%</strong> of take-home. Most Muscovites own outright (~80%), softening this in practice.</p>
-      <div class="score">
-        <div class="big">194%</div>
-        <div class="lbl" data-i18n="v.score-label">rent + basics<br/>÷ median net</div>
-      </div>
-    </article>
-
-    <article class="verdict sk" data-country="sk">
-      <div class="flag" data-i18n="v.sk.flag">Slovakia · Bratislava</div>
-      <h3 data-i18n="v.sk.h3">The egalitarian middle.</h3>
-      <p data-i18n="v.sk.p">Lowest Gini in the EU (0.217). 7th-heaviest OECD tax wedge (42.6%). Eurozone member — no FX risk. Bratislava 1BR €900 against €1,140 median net is moderate; cheap childcare and university, mid-tier on everything else.</p>
-      <div class="score">
-        <div class="big">119%</div>
-        <div class="lbl" data-i18n="v.score-label">rent + basics<br/>÷ median net</div>
+        <div class="lbl">rent + basics<br/>÷ median net</div>
       </div>
     </article>
   </div>
@@ -947,18 +755,17 @@
 <!-- METHODOLOGY -->
 <section class="chapter" id="methodology">
   <div class="ch-head">
-    <div class="ch-num" data-i18n="s.00.num">§ 00 · Method</div>
+    <div class="ch-num">§ 00 · Method</div>
     <div>
-      <h2 data-i18n="s.00.h2">How to read this.</h2>
-      <p class="deck" data-i18n="s.00.deck">Every number here is a model, not a fact. Salaries differ by region. Rents differ by contract. Tax effective rates depend on dependents. What follows is the central tendency for the central case — single adult or family of four in the capital — drawn from national statistical offices and OECD comparators.</p>
+      <h2>How to read this.</h2>
+      <p class="deck">Every number here is a model, not a fact. Salaries differ by region. Rents differ by contract. Tax effective rates depend on dependents. What follows is the central tendency for the central case — single adult or family of four in the capital — drawn from national statistical offices and OECD comparators.</p>
     </div>
   </div>
 
   <div class="caveat">
-    <div class="l" data-i18n="caveat.label">Exchange rates &amp; data vintage</div>
-    <p data-i18n="caveat.p1">All non-euro amounts converted using late-2024 / early-2025 reference rates: <code>1 ILS = 0.25 EUR</code> (≈ 4.00 ILS / €), <code>1 SEK = 0.087 EUR</code> (≈ 11.5 SEK / €), <code>1 RUB = 0.010 EUR</code> (≈ 100 RUB / €). Slovakia and France use the euro natively. Period of measurement is the most recent available — 2024 for INSEE, SCB, Rosstat and ŠÚ SR salary structures, October 2024 for CBS Israel, December 2024 for Eurostat Gini, January 2025 for the Israeli VAT raise to 18%, the new Russian progressive tax scale, and the Slovak VAT raise to 23%. 2024 OECD Tax Wedge, January 2025 Big Mac Index, Numbeo 2025 quarterly indices.</p>
-    <p data-i18n="caveat.p2"><strong>Russia-specific caveats.</strong> Russia was suspended from the OECD in March 2022, so cross-country OECD metrics (tax wedge, PPP wages) are <em>unavailable</em> for Russia in the 2024 round; the figures used here are from Rosstat, Bank of Russia, Moscow Times reporting, and Numbeo. The ruble has been highly volatile (RUB/EUR ranged 0.0085 → 0.0115 across 2024–25); a clean midpoint of <code>1 RUB = €0.010</code> is used throughout. Numbers from Rosstat are subject to ongoing methodology disputes (HSE 2025 critique noted in sources). Big Mac figures are imputed from the Vkusno i tochka "Big Hit" replacement, since McDonald's exited Russia in 2022.</p>
-    <p data-i18n="caveat.p3"><strong>Honest disclosure.</strong> The orchestrator pulled live figures via web search for the load-bearing numbers (INSEE, SMIC, Navigo, OECD wages, Israeli VAT, Numbeo, CBS, SCB, Stockholm/Tel Aviv/Moscow rents, Rosstat wages, Russian VAT and tax brackets). Some second-order numbers (utility bills, mid-tier salaries) are best-effort triangulations from multiple secondary sources. Sources are listed in full at the bottom of this document.</p>
+    <div class="l">Exchange rates &amp; data vintage</div>
+    <p>All non-euro amounts converted using late-2024 / early-2025 reference rates: <code>1 ILS = 0.25 EUR</code> (≈ 4.00 ILS / €), <code>1 SEK = 0.087 EUR</code> (≈ 11.5 SEK / €). Period of measurement is the most recent available — 2024 for INSEE and SCB salary structure, October 2024 for CBS Israel, December 2024 for Eurostat Gini, January 2025 for the Israeli VAT raise to 18%, 2024 OECD Tax Wedge, January 2025 Big Mac Index, Numbeo 2025 quarterly indices.</p>
+    <p><strong>Honest disclosure:</strong> the orchestrator pulled live figures via web search for the load-bearing numbers (INSEE median, SMIC, Navigo, OECD wages, Israeli VAT, Numbeo, CBS averages, SCB medians, Stockholm/Tel Aviv rents). Some second-order numbers (utility bills, mid-tier salaries) are best-effort triangulations from multiple secondary sources. Sources are listed in full at the bottom of this document.</p>
   </div>
 </section>
 
@@ -968,7 +775,7 @@
     <div class="ch-num">§ 01 · Income</div>
     <div>
       <h2>What you <em>make</em>.</h2>
-      <p class="deck">Median, mean, and the long tail. France and Sweden cluster around a similar median net wage; Israel sits lower at the median but spectacularly higher at the top of the tech tail; Russia sits well below all three on every measure — even Moscow tech, the elite Russian wage tier, falls short of an entry-level Swedish teacher.</p>
+      <p class="deck">Median, mean, and the long tail. France and Sweden cluster around a similar median net wage; Israel sits lower at the median but spectacularly higher at the top of the tech tail.</p>
     </div>
   </div>
 
@@ -991,7 +798,7 @@
 <div class="pull">
   <div class="pull-inner wrap">
     <blockquote>
-      The median Israeli earns less than the median Frenchman or Swede — but an <em class="h"><span class="il">Israeli software engineer</span></em> in Tel Aviv earns roughly <em class="h">€2,600 more per month than her Stockholm counterpart, €3,100 more than her Parisian one, and almost <span class="ru">six times</span> what a Moscow software engineer takes home</em>.
+      The median Israeli earns less than the median Frenchman or Swede — but an <em class="h"><span class="il">Israeli software engineer</span></em> in Tel Aviv earns roughly <em class="h">€2,600 more per month than her Stockholm counterpart, and €3,100 more than her Parisian one</em>.
     </blockquote>
     <cite>Sources · CBS Israel · SCB Sweden · INSEE France · Glassdoor · Levels.fyi</cite>
   </div>
@@ -1014,7 +821,7 @@
 
     <div style="padding: 16px 0 36px 0;">
 
-      <div class="range-row il" data-country="il">
+      <div class="range-row il">
         <div class="name">Israel</div>
         <div class="range-bar">
           <div class="track"></div>
@@ -1026,7 +833,7 @@
         <div class="gini"><span class="lab">Gini</span>0.344</div>
       </div>
 
-      <div class="range-row se" data-country="se">
+      <div class="range-row se">
         <div class="name">Sweden</div>
         <div class="range-bar">
           <div class="track"></div>
@@ -1038,7 +845,7 @@
         <div class="gini"><span class="lab">Gini</span>0.286</div>
       </div>
 
-      <div class="range-row fr" data-country="fr">
+      <div class="range-row fr">
         <div class="name">France</div>
         <div class="range-bar">
           <div class="track"></div>
@@ -1050,33 +857,9 @@
         <div class="gini"><span class="lab">Gini</span>0.300</div>
       </div>
 
-      <div class="range-row ru" data-country="ru">
-        <div class="name">Russia</div>
-        <div class="range-bar">
-          <div class="track"></div>
-          <div class="seg" style="left:3%; right:73%;"></div>
-          <div class="dot" style="left:3%;"></div><div class="lbl" style="left:3%;">€230</div>
-          <div class="dot" style="left:8%;"></div><div class="lbl" style="left:8%;">P50 · €565</div>
-          <div class="dot" style="left:27%;"></div><div class="lbl" style="left:27%;">€1,800</div>
-        </div>
-        <div class="gini"><span class="lab">Gini</span>0.410</div>
-      </div>
-
-      <div class="range-row sk" data-country="sk">
-        <div class="name">Slovakia</div>
-        <div class="range-bar">
-          <div class="track"></div>
-          <div class="seg" style="left:13.5%; right:59.7%;"></div>
-          <div class="dot" style="left:13.5%;"></div><div class="lbl" style="left:13.5%;">€970</div>
-          <div class="dot" style="left:20.8%;"></div><div class="lbl" style="left:20.8%;">P50 · €1,500</div>
-          <div class="dot" style="left:40.3%;"></div><div class="lbl" style="left:40.3%;">€2,900</div>
-        </div>
-        <div class="gini"><span class="lab">Gini</span>0.217</div>
-      </div>
-
     </div>
 
-    <p class="sub" style="margin-top: 36px; margin-bottom: 0; font-style: italic;">Israeli wages have the steepest stretch — the top decile earns <strong style="color:var(--ink)">8.6×</strong> the bottom decile. Russia is close behind at <strong style="color:var(--ink)">7.8×</strong>, with the highest Gini in the set (0.41, near Russia's pre-sanctions peak). Sweden runs <strong style="color:var(--ink)">2.3×</strong>; France <strong style="color:var(--ink)">2.6×</strong>; Slovakia <strong style="color:var(--ink)">3.0×</strong> on the wage spread but <strong style="color:var(--ink)">the lowest Gini in the entire EU (0.217)</strong> on disposable income after taxes and transfers — a structural redistribution effect, not a wage-compression one.</p>
+    <p class="sub" style="margin-top: 36px; margin-bottom: 0; font-style: italic;">Israeli wages have the steepest stretch — the top decile earns <strong style="color:var(--ink)">8.6×</strong> the bottom decile. In Sweden the ratio is <strong style="color:var(--ink)">2.3×</strong>; in France <strong style="color:var(--ink)">2.6×</strong>.</p>
   </div>
 </section>
 
@@ -1093,7 +876,7 @@
   <div class="chart-card">
     <div class="label">Chart 4 · Tax wedge &amp; VAT</div>
     <h4>France runs one of the heaviest wedges in the OECD; Israel runs one of the lightest.</h4>
-    <p class="sub">Tax wedge = (income tax + employee social security + employer social security) ÷ total labour cost. The OECD average for 2024 was 34.9%. VAT is the standard consumption rate. <em style="color:var(--ink-dim);">The four bars are different rate concepts plotted on the same axis for visual comparison — they should not be summed.</em> <strong style="color:var(--ru);">*</strong> <em style="color:var(--ink-dim);">Russia was suspended from the OECD in 2022 — its tax wedge is imputed from employer social contributions (~30%) plus employee NDFL (13%). Top marginal rate of 22% applies only to annual income above ₽50M; the flat 13% still applies to ~95% of earners.</em></p>
+    <p class="sub">Tax wedge = (income tax + employee social security + employer social security) ÷ total labour cost. The OECD average for 2024 was 34.9%. VAT is the standard consumption rate. <em style="color:var(--ink-dim);">The four bars are different rate concepts plotted on the same axis for visual comparison — they should not be summed.</em></p>
     <div class="chart-wrap"><canvas id="chartTax"></canvas></div>
   </div>
 </section>
@@ -1118,7 +901,7 @@
   <div class="chart-card">
     <div class="label">Chart 6 · Each category as a % of national median net pay</div>
     <h4>Same basket, but weighed against what you make.</h4>
-    <p class="sub">Israel's grocery bill is already <strong style="color:var(--ink)">67% higher than France's in absolute euros</strong> (€500 vs €300). Indexed against median net pay it becomes punishing — <strong style="color:var(--ink)">27%</strong> of take-home in Israel against <strong style="color:var(--ink)">14%</strong> in France and <strong style="color:var(--ink)">10%</strong> in Sweden. Russia inverts this entirely: groceries cost just €140 in absolute terms (a third of Israel's bill), but on the €491 median net wage that still consumes <strong style="color:var(--ru)">29%</strong> — more than Israel. Cheap in dollars, expensive in your own currency.</p>
+    <p class="sub">Israel's grocery bill is already <strong style="color:var(--ink)">67% higher than France's in absolute euros</strong> (€500 vs €300). Indexed against median net pay it becomes punishing — <strong style="color:var(--ink)">27%</strong> of take-home in Israel against <strong style="color:var(--ink)">14%</strong> in France and <strong style="color:var(--ink)">10%</strong> in Sweden. Two compounding effects: groceries genuinely cost more in Israel (kashrut supply chains, import duties), and median pay is lower.</p>
     <div class="chart-wrap tall"><canvas id="chartBasketPct"></canvas></div>
   </div>
 </section>
@@ -1134,30 +917,20 @@
   </div>
 
   <div class="stat-row">
-    <div class="stat il" data-country="il">
+    <div class="stat il">
       <div class="ctry">Tel Aviv</div>
-      <div class="num">€1,900<span style="font-size:20px;color:var(--ink-dim)">/mo</span></div>
+      <div class="num">€1,900<span style="font-size:24px;color:var(--ink-dim)">/mo</span></div>
       <div class="cap">1BR city center · vs €1,850 median net → <strong style="color:var(--il)">103%</strong> of take-home</div>
     </div>
-    <div class="stat se" data-country="se">
+    <div class="stat se">
       <div class="ctry">Stockholm</div>
-      <div class="num">€1,150<span style="font-size:20px;color:var(--ink-dim)">/mo</span></div>
-      <div class="cap">1BR center, second-hand · vs €2,480 median net → <strong style="color:var(--se)">46%</strong> of take-home</div>
+      <div class="num">€1,150<span style="font-size:24px;color:var(--ink-dim)">/mo</span></div>
+      <div class="cap">1BR center, second-hand contract · vs €2,480 median net → <strong style="color:var(--se)">46%</strong> of take-home</div>
     </div>
-    <div class="stat fr" data-country="fr">
+    <div class="stat fr">
       <div class="ctry">Paris</div>
-      <div class="num">€1,500<span style="font-size:20px;color:var(--ink-dim)">/mo</span></div>
+      <div class="num">€1,500<span style="font-size:24px;color:var(--ink-dim)">/mo</span></div>
       <div class="cap">1BR center · vs €2,190 median net → <strong style="color:var(--fr)">68%</strong> of take-home</div>
-    </div>
-    <div class="stat ru" data-country="ru">
-      <div class="ctry">Moscow</div>
-      <div class="num">€730<span style="font-size:20px;color:var(--ink-dim)">/mo</span></div>
-      <div class="cap">1BR center · vs €491 median net → <strong style="color:var(--ru)">149%</strong> of take-home</div>
-    </div>
-    <div class="stat sk" data-country="sk">
-      <div class="ctry">Bratislava</div>
-      <div class="num">€900<span style="font-size:20px;color:var(--ink-dim)">/mo</span></div>
-      <div class="cap">1BR center · vs €1,140 median net → <strong style="color:var(--sk)">79%</strong> of take-home</div>
     </div>
   </div>
 
@@ -1167,44 +940,33 @@
     <p class="sub">A solo earner on the national median net pay would devote this share of their monthly take-home to a single one-bedroom apartment in the country's capital city. The dashed reference at 50% is the rule-of-thumb threshold for housing-cost-burdened — Tel Aviv crosses it twice over.</p>
 
     <div class="burden">
-      <div class="burden-row ru over" data-country="ru">
-        <div class="who">Moscow<small>1BR center · €730 · vs €491 net</small></div>
-        <div class="burden-bar over"><div class="ref"></div><div class="fill" style="width:100%"></div></div>
-        <div class="pct">149%</div>
-      </div>
-      <div class="burden-row il over" data-country="il">
+      <div class="burden-row il over">
         <div class="who">Tel Aviv<small>1BR center · €1,900</small></div>
         <div class="burden-bar over"><div class="ref"></div><div class="fill" style="width:100%"></div></div>
         <div class="pct">103%</div>
       </div>
-      <div class="burden-row sk" data-country="sk">
-        <div class="who">Bratislava<small>1BR center · €900</small></div>
-        <div class="burden-bar"><div class="ref"></div><div class="fill" style="width:79%"></div></div>
-        <div class="pct">79%</div>
-      </div>
-      <div class="burden-row fr" data-country="fr">
+      <div class="burden-row fr">
         <div class="who">Paris<small>1BR center · €1,500</small></div>
         <div class="burden-bar"><div class="ref"></div><div class="fill" style="width:68%"></div></div>
         <div class="pct">68%</div>
       </div>
-      <div class="burden-row se" data-country="se">
+      <div class="burden-row se">
         <div class="who">Stockholm<small>1BR second-hand · €1,150</small></div>
         <div class="burden-bar"><div class="ref"></div><div class="fill" style="width:46%"></div></div>
         <div class="pct">46%</div>
       </div>
-      <div class="burden-row se" data-country="se">
+      <div class="burden-row se">
         <div class="who">Stockholm <em style="color:var(--ink-dim);font-style:normal;">first-hand</em><small>1BR regulated · €740 · 9–20yr wait</small></div>
         <div class="burden-bar"><div class="ref"></div><div class="fill" style="width:30%"></div></div>
         <div class="pct">30%</div>
       </div>
     </div>
-    <p class="sub" style="margin-top: 24px; margin-bottom: 0; font-style: italic;">Important Russian footnote: ~80% of Russian households own their home outright (legacy of post-Soviet privatization), so the rental burden above is felt mainly by newcomers, migrants and the under-35s. For the median Russian who inherited a flat, the line vanishes from the household budget entirely.</p>
   </div>
 
   <div class="chart-card">
     <div class="label">Chart 8 · Home price ÷ annual gross salary</div>
     <h4>Buying, not renting.</h4>
-    <p class="sub">How many years of <em>gross</em> salary at the national median does it take to buy a 4-room apartment in the capital? This is the price-to-income ratio Numbeo and the Bank for International Settlements use to flag housing-bubble territory. Tel Aviv sits in the global worst quintile; Moscow's 47-year ratio is technically the worst — but in practice softened by mass post-Soviet privatization, which means most current Russian residents didn't buy at market price.</p>
+    <p class="sub">How many years of <em>gross</em> salary at the national median does it take to buy a 4-room apartment in the capital? This is the price-to-income ratio Numbeo and the Bank for International Settlements use to flag housing-bubble territory. Tel Aviv sits in the global worst quintile.</p>
     <div class="chart-wrap short"><canvas id="chartPriceIncome"></canvas></div>
   </div>
 </section>
@@ -1212,7 +974,7 @@
 <div class="pull">
   <div class="pull-inner wrap">
     <blockquote>
-      An <em class="h"><span class="il">Israeli median earner</span></em> would need <em class="h">17 years</em> of full gross pay to buy an average four-room apartment in Tel Aviv. <em class="h"><span class="se">In Stockholm: 11 years</span></em>. <em class="h"><span class="fr">In Paris: 14</span></em>. <em class="h"><span class="ru">In Moscow: 47</span></em> — though most Russians never had to pay it.
+      An <em class="h"><span class="il">Israeli median earner</span></em> would need <em class="h">17 years</em> of full gross pay to buy an average four-room apartment in Tel Aviv. <em class="h"><span class="se">In Stockholm: 11 years</span></em>. <em class="h"><span class="fr">In Paris: 14</span></em>.
     </blockquote>
     <cite>Sources · CBS Housing Price Index · Numbeo · Svensk Mäklarstatistik · MeilleursAgents</cite>
   </div>
@@ -1231,7 +993,7 @@
   <div class="chart-card">
     <div class="label">Chart 9 · Monthly fee · one full-time toddler place · EUR</div>
     <h4>Daycare, after subsidy.</h4>
-    <p class="sub">Sweden's förskola is capped at <strong style="color:var(--se)">€155 per month</strong> regardless of household income (the famous <em>maxtaxa</em>; SEK 1,783 ceiling from Jan 2025, raised from SEK 1,688 / €147 in 2024). France's municipal crèche typically lands at €300–€500 after CAF subsidies; a private crèche or assistante maternelle nets to roughly €700 after the CMG, which covers up to 85% of expenses. In Israel, a private maon runs €950 unsubsidized, with means-tested public placement at €300–€475. Russia's public <em>detsky sad</em> is the cheapest in the comparison — by law municipalities may charge parents only up to 20% of total cost, so monthly fees in Moscow run around <strong style="color:var(--ru)">€24</strong>; private daycare starts at ~€250.</p>
+    <p class="sub">Sweden's förskola is capped at <strong style="color:var(--se)">€155 per month</strong> regardless of household income (the famous <em>maxtaxa</em>; SEK 1,783 ceiling from Jan 2025, raised from SEK 1,688 / €147 in 2024). France's municipal crèche typically lands at €300–€500 after CAF subsidies; a private crèche or assistante maternelle nets to roughly €700 after the CMG, which covers up to 85% of expenses. In Israel, a private maon runs €950 unsubsidized, with means-tested public placement at €300–€475. The maxtaxa difference alone is worth roughly €600–800/month to a Swedish family vs an Israeli one.</p>
     <div class="chart-wrap"><canvas id="chartChildcare"></canvas></div>
   </div>
 </section>
@@ -1248,60 +1010,44 @@
 
   <div class="free-grid">
     <div class="head">Public service</div>
-    <div class="head il" data-country="il">Israel</div>
-    <div class="head se" data-country="se">Sweden</div>
-    <div class="head fr" data-country="fr">France</div>
-    <div class="head ru" data-country="ru">Russia</div>
-    <div class="head sk" data-country="sk">Slovakia</div>
+    <div class="head il">Israel</div>
+    <div class="head se">Sweden</div>
+    <div class="head fr">France</div>
 
     <div class="row-label">K-12 public school</div>
-    <div class="partial" data-country="il">Tuition free, ~€625/yr extras</div>
-    <div class="free" data-country="se">Tuition + lunch free</div>
-    <div class="partial" data-country="fr">Tuition free, ~€600/yr canteen + supplies</div>
-    <div class="partial" data-country="ru">Tuition free; meals, books extras vary</div>
-    <div class="partial" data-country="sk">Tuition free; canteen ~€30/mo, books extras</div>
+    <div class="partial">Tuition free, ~€625/yr extras</div>
+    <div class="free">Tuition + lunch free</div>
+    <div class="partial">Tuition free, ~€600/yr canteen + supplies</div>
 
     <div class="row-label">Public university (per year)</div>
-    <div class="cost" data-country="il">€2,950</div>
-    <div class="free" data-country="se">€0 (EU/EES)</div>
-    <div class="cost" data-country="fr">€178 (licence)</div>
-    <div class="partial" data-country="ru">Free on state quota; €3,000–€5,000 contract</div>
-    <div class="free" data-country="sk">€0 for SK/EU citizens (Slovak-language programs)</div>
+    <div class="cost">€2,950</div>
+    <div class="free">€0 (EU/EES)</div>
+    <div class="cost">€178 (licence)</div>
 
     <div class="row-label">Healthcare — doctor visit</div>
-    <div class="cost" data-country="il">~€8 co-pay + €28/mo supplemental</div>
-    <div class="free" data-country="se">€0 above €122/yr ceiling</div>
-    <div class="partial" data-country="fr">€26.50 visit, 70% refunded by Sécu, mutuelle (€70–€120/mo)</div>
-    <div class="free" data-country="ru">€0 under state OMS (quality variable)</div>
-    <div class="free" data-country="sk">€0 under public insurance; small co-pays for prescriptions</div>
+    <div class="cost">~€8 co-pay + €28/mo supplemental</div>
+    <div class="free">€0 above €122/yr ceiling</div>
+    <div class="partial">€26.50 visit, 70% refunded by Sécu, balance by mutuelle (€70–€120/mo)</div>
 
     <div class="row-label">Childcare cap (toddler)</div>
-    <div class="cost" data-country="il">~€950/mo private, €475 subsidized</div>
-    <div class="free" data-country="se">€155/mo MAX (maxtaxa 2025)</div>
-    <div class="cost" data-country="fr">~€300–€500/mo after CMG</div>
-    <div class="free" data-country="ru">€24/mo public; €250+ private</div>
-    <div class="free" data-country="sk">~€30–€100/mo public (municipality-set); €400+ private</div>
+    <div class="cost">~€950/mo private, €475 subsidized</div>
+    <div class="free">€155/mo MAX (maxtaxa 2025)</div>
+    <div class="cost">~€300–€500/mo after CMG</div>
 
     <div class="row-label">Statutory paid vacation</div>
-    <div class="cost" data-country="il">12 days statutory min; ~18–24 with tenure / CBA</div>
-    <div class="free" data-country="se">25 days + collective bargaining</div>
-    <div class="free" data-country="fr">25 days + RTT</div>
-    <div class="free" data-country="ru">28 days (statutory)</div>
-    <div class="partial" data-country="sk">20 days under 33, 25 days from 33+</div>
+    <div class="cost">12 days statutory min; ~18–24 with tenure / collective agreements</div>
+    <div class="free">25 days + collective bargaining</div>
+    <div class="free">25 days + RTT</div>
 
     <div class="row-label">Top marginal income tax</div>
-    <div class="cost" data-country="il">50%</div>
-    <div class="cost" data-country="se">52.3% (above €53,500/yr)</div>
-    <div class="cost" data-country="fr">45% (+4% surtax)</div>
-    <div class="cost" data-country="ru">22% <small style="color:var(--ink-dim)">(Jan 2025, above ₽50M/yr); 13% flat below</small></div>
-    <div class="cost" data-country="sk">25% <small style="color:var(--ink-dim)">(above €48,441 in 2025; 30% &amp; 35% steps coming 2026)</small></div>
+    <div class="cost">50%</div>
+    <div class="cost">52.3% (above €53,500/yr)</div>
+    <div class="cost">45% (+4% surtax)</div>
 
     <div class="row-label">VAT (standard)</div>
-    <div class="cost" data-country="il">18% <small style="color:var(--ink-dim)">(↑ Jan 2025 from 17%)</small></div>
-    <div class="cost" data-country="se">25%</div>
-    <div class="cost" data-country="fr">20%</div>
-    <div class="cost" data-country="ru">20% <small style="color:var(--ink-dim)">(↑ to 22% Jan 2026)</small></div>
-    <div class="cost" data-country="sk">23% <small style="color:var(--ink-dim)">(↑ Jan 2025 from 20%)</small></div>
+    <div class="cost">18% <small style="color:var(--ink-dim)">(↑ Jan 2025 from 17%)</small></div>
+    <div class="cost">25%</div>
+    <div class="cost">20%</div>
   </div>
 </section>
 
@@ -1318,7 +1064,7 @@
   <div class="chart-card">
     <div class="label">Chart 10 · Big Mac price · Jan 2025 · local price ↔ EUR</div>
     <h4>The hamburger doesn't lie.</h4>
-    <p class="sub">Each Big Mac price (USD/€-converted, Jan 2025 Economist BMI) and the country's Numbeo Cost of Living Index (NYC = 100, excluding rent). Big Mac shows raw price level; Numbeo captures the whole basket. <strong style="color:var(--ink)">Both indicators put Tel Aviv at the top</strong> — Israel's Big Mac is roughly €6.10 (the most expensive of the five) and its Numbeo basket index sits at 76, against Bratislava's 56, Stockholm's 62 and Paris's 68. Russia, by contrast, posts the cheapest price level of the five in raw euros: Moscow's Numbeo CoLI sits at ~52 and the "Big Hit" (Vkusno i tochka's Big Mac replacement, since McDonald's exited in 2022) is under €2. The kicker is in the next chart: cheap prices ÷ low wages still produces the worst affordability ratios in the set.</p>
+    <p class="sub">Each Big Mac price (USD/€-converted, Jan 2025 Economist BMI) and the country's Numbeo Cost of Living Index (NYC = 100, excluding rent). Big Mac shows raw price level; Numbeo captures the whole basket. <strong style="color:var(--ink)">Both indicators put Tel Aviv at the top</strong> — Israel's Big Mac is roughly €6.10 (the most expensive of the three) and its Numbeo basket index sits at 76, against Stockholm's 62 and Paris's 68. The kashrut supply chain and import-duty regime keep Israeli grocery and prepared-food prices structurally elevated.</p>
     <div class="chart-wrap"><canvas id="chartBigMac"></canvas></div>
   </div>
 </section>
@@ -1336,7 +1082,7 @@
   <div class="chart-card">
     <div class="label">Chart 11 · Composite affordability radar</div>
     <h4>The shape of each country.</h4>
-    <p class="sub">Each axis is normalized 0–100, where 100 is the most resident-friendly value across the five countries. Income = PPP-adjusted wage. Rent-friendly = inverse of rent-to-income. Free services = weighted index of education/health/childcare price. Tax efficiency = inverse of tax wedge minus value-of-services adjustment.</p>
+    <p class="sub">Each axis is normalized 0–100, where 100 is the most resident-friendly value across the three countries. Income = PPP-adjusted wage. Rent-friendly = inverse of rent-to-income. Free services = weighted index of education/health/childcare price. Tax efficiency = inverse of tax wedge minus value-of-services adjustment.</p>
     <div class="chart-wrap tall"><canvas id="chartRadar"></canvas></div>
   </div>
 
@@ -1347,23 +1093,23 @@
 
     <table class="data" style="margin-bottom: 28px;">
       <thead>
-        <tr><th></th><th data-country="il">Israel (TA suburb)</th><th data-country="se">Sweden (Stockholm)</th><th data-country="fr">France (banlieue)</th><th data-country="ru">Russia (Moscow area)</th><th data-country="sk">Slovakia (Bratislava)</th></tr>
+        <tr><th></th><th>Israel (TA suburb)</th><th>Sweden (Stockholm)</th><th>France (banlieue)</th></tr>
       </thead>
       <tbody>
-        <tr><td>Dual median net income</td><td class="il" data-country="il">€3,700</td><td class="se" data-country="se">€4,960</td><td class="fr" data-country="fr">€4,380</td><td class="ru" data-country="ru">€982</td><td class="sk" data-country="sk">€2,280</td></tr>
-        <tr><td>3BR rent (metro)</td><td class="il" data-country="il">−€1,875</td><td class="se" data-country="se">−€1,500</td><td class="fr" data-country="fr">−€1,400</td><td class="ru" data-country="ru">−€1,200</td><td class="sk" data-country="sk">−€1,400</td></tr>
-        <tr><td>Family groceries</td><td class="il" data-country="il">−€1,250</td><td class="se" data-country="se">−€800</td><td class="fr" data-country="fr">−€750</td><td class="ru" data-country="ru">−€350</td><td class="sk" data-country="sk">−€650</td></tr>
-        <tr><td>Utilities (elec + water + heat)</td><td class="il" data-country="il">−€200</td><td class="se" data-country="se">−€270</td><td class="fr" data-country="fr">−€150</td><td class="ru" data-country="ru">−€60</td><td class="sk" data-country="sk">−€180</td></tr>
-        <tr><td>Childcare (1 toddler, post-subsidy)</td><td class="il" data-country="il">−€400</td><td class="se" data-country="se">−€155</td><td class="fr" data-country="fr">−€400</td><td class="ru" data-country="ru">−€24</td><td class="sk" data-country="sk">−€50</td></tr>
-        <tr><td>Transport (2 monthly passes)</td><td class="il" data-country="il">−€112</td><td class="se" data-country="se">−€178</td><td class="fr" data-country="fr">−€178</td><td class="ru" data-country="ru">−€40</td><td class="sk" data-country="sk">−€72</td></tr>
-        <tr><td>Health (supplemental / mutuelle / cap)</td><td class="il" data-country="il">−€56</td><td class="se" data-country="se">−€20</td><td class="fr" data-country="fr">−€170</td><td class="ru" data-country="ru">−€15</td><td class="sk" data-country="sk">−€30</td></tr>
-        <tr class="total"><td>Monthly surplus / deficit</td><td class="il" data-country="il"><strong>−€193</strong></td><td class="se" data-country="se"><strong>+€2,037</strong></td><td class="fr" data-country="fr"><strong>+€1,332</strong></td><td class="ru" data-country="ru"><strong>−€707</strong></td><td class="sk" data-country="sk"><strong>−€102</strong></td></tr>
+        <tr><td>Dual median net income</td><td class="il">€3,700</td><td class="se">€4,960</td><td class="fr">€4,380</td></tr>
+        <tr><td>3BR rent (metro)</td><td class="il">−€1,875</td><td class="se">−€1,500</td><td class="fr">−€1,400</td></tr>
+        <tr><td>Family groceries</td><td class="il">−€1,250</td><td class="se">−€800</td><td class="fr">−€750</td></tr>
+        <tr><td>Utilities (elec + water + heat)</td><td class="il">−€200</td><td class="se">−€270</td><td class="fr">−€150</td></tr>
+        <tr><td>Childcare (1 toddler, post-subsidy)</td><td class="il">−€400</td><td class="se">−€155</td><td class="fr">−€400</td></tr>
+        <tr><td>Transport (2 monthly passes)</td><td class="il">−€112</td><td class="se">−€178</td><td class="fr">−€178</td></tr>
+        <tr><td>Health (supplemental / mutuelle / cap)</td><td class="il">−€56</td><td class="se">−€20</td><td class="fr">−€170</td></tr>
+        <tr class="total"><td>Monthly surplus / deficit</td><td class="il"><strong>−€193</strong></td><td class="se"><strong>+€2,037</strong></td><td class="fr"><strong>+€1,332</strong></td></tr>
       </tbody>
     </table>
 
     <div class="chart-wrap"><canvas id="chartSurplus"></canvas></div>
 
-    <p class="sub" style="margin-top: 28px; margin-bottom: 0; font-style: italic;">The Israeli family-of-four runs a small monthly deficit on the central-case assumption set, and the Russian family runs a much larger one (−€707) on the rental model. Russia's number is the most misleading on its face: with ~80% home ownership, the rent line largely vanishes for inherited apartments, flipping the surplus to roughly <strong style="color:var(--ru)">+€500/mo</strong> for the typical Russian household that owns outright. The deficit shown is the cost <em>imposed on newcomers, renters and migrants</em> — for whom Moscow is genuinely unaffordable on the median wage. Sweden and France retain their large surpluses on either accounting.</p>
+    <p class="sub" style="margin-top: 28px; margin-bottom: 0; font-style: italic;">The Israeli family-of-four runs a small monthly deficit on the central-case assumption set. That is consistent with the empirical reality that a single median earner cannot solo-cover Tel Aviv — and even a dual-median household sits on a knife-edge that any unexpected expense pushes underwater. Reasonable variations (cheaper rent further out, subsidized maon at the lowest tier, lower grocery basket) bring it to roughly €0; aggressive optimism gets it to ≈+€400.</p>
   </div>
 </section>
 
@@ -1373,65 +1119,45 @@
     <div class="ch-num">§ 10 · The bottom line</div>
     <div>
       <h2>So <em>where</em> is it cheapest to actually live?</h2>
-      <p class="deck">There is no single answer — the five countries aren't optimized for the same thing. But for the median household, after the state is done taking and giving back, the ranking inverts the headlines. Russia is the most extreme case in either direction: brutal as a newcomer renting on the median wage, comfortable enough for the median household that inherited a Soviet-era flat.</p>
+      <p class="deck">There is no single answer — the three countries aren't optimized for the same thing. But for the median household, after the state is done taking and giving back, the ranking inverts the headlines.</p>
     </div>
   </div>
 
   <div class="takeaways">
-    <div class="takeaway se" data-country="se">
+    <div class="takeaway se">
       <div class="rank">1.</div>
       <div class="ctry-name">Sweden</div>
       <ul>
-        <li><strong>Real cost</strong> Highest tax wedge is offset by capped childcare, free school + university, and a €122/yr healthcare ceiling. Effective bill for a family is the lowest of the five (on the renter-paying model).</li>
+        <li><strong>Real cost</strong> Highest tax wedge is offset by capped childcare, free school + university, and a €122/yr healthcare ceiling. Effective bill for a family is the lowest of the three.</li>
         <li><strong>Median household surplus</strong> <em style="color:var(--ink)">≈ €2,037/mo</em> after the documented family basket.</li>
         <li><strong>Catch</strong> Housing is bimodal — first-hand contracts require a 9–20 year queue; newcomers pay second-hand rates that close the gap with Paris.</li>
       </ul>
     </div>
 
-    <div class="takeaway fr" data-country="fr">
+    <div class="takeaway fr">
       <div class="rank">2.</div>
       <div class="ctry-name">France</div>
       <ul>
-        <li><strong>Real cost</strong> One of the heaviest tax wedges in the OECD — but the public sector is structurally inexpensive: €178 university, €88.80 Navigo, free K-12, partially-reimbursed health.</li>
+        <li><strong>Real cost</strong> Heaviest tax wedge in the OECD — but the public sector is structurally inexpensive: €178 university, €88.80 Navigo, free K-12, partially-reimbursed health.</li>
         <li><strong>Median household surplus</strong> <em style="color:var(--ink)">≈ €1,332/mo</em> after the documented family basket.</li>
         <li><strong>Catch</strong> Mutuelle insurance is a hidden monthly cost that rises sharply with age; banlieue rent burden is moderate but Paris-center is harsh.</li>
       </ul>
     </div>
 
-    <div class="takeaway sk" data-country="sk">
+    <div class="takeaway il">
       <div class="rank">3.</div>
-      <div class="ctry-name">Slovakia</div>
-      <ul>
-        <li><strong>Real cost</strong> 7th-heaviest OECD tax wedge (42.6%) but euro-denominated and EU-priced. Childcare cheap, university free, healthcare free, Big Mac €4.95. Bratislava regional premium softens the national picture.</li>
-        <li><strong>Median household surplus</strong> <em style="color:var(--ink)">≈ −€102/mo</em> on national-median dual-income; flips clearly positive on Bratislava-regional wages.</li>
-        <li><strong>Catch</strong> Lowest Gini in the EU (0.217) means redistribution is doing real work — but regional inequality is among Europe's widest. The national median understates Bratislava reality; rural Slovakia is much closer to the lower end of the wage band.</li>
-      </ul>
-    </div>
-
-    <div class="takeaway il" data-country="il">
-      <div class="rank">4.</div>
       <div class="ctry-name">Israel</div>
       <ul>
-        <li><strong>Real cost</strong> Lowest tax wedge of the five (excluding Russia's flat-tax era) — but the lowest social return on it. Childcare, university, supplementary health all paid out of pocket; food and housing eat the rest.</li>
+        <li><strong>Real cost</strong> Lowest tax wedge of the three — but the lowest social return on it. Childcare, university, supplementary health all paid out of pocket; food and housing eat the rest.</li>
         <li><strong>Median household surplus</strong> <em style="color:var(--ink)">≈ −€193/mo</em> — a small deficit on the central case. Reasonable variation brings it to roughly zero; cheaper rent further from the metro can push it positive.</li>
         <li><strong>Catch</strong> If you're in tech, none of this applies. The Israeli high-tech salary is the single most lucrative position in this comparison — but only ~10% of the workforce holds it.</li>
-      </ul>
-    </div>
-
-    <div class="takeaway ru" data-country="ru">
-      <div class="rank">5.</div>
-      <div class="ctry-name">Russia</div>
-      <ul>
-        <li><strong>Real cost</strong> Prices the cheapest of the five in absolute euros — but wages so low that burden ratios are the worst in the set. 13% flat income tax (22% from Jan 2025 above ₽50M/yr) and 20% VAT.</li>
-        <li><strong>Median household surplus</strong> <em style="color:var(--ink)">≈ −€707/mo</em> on the renter model; <em style="color:var(--ink)">≈ +€500/mo</em> for the ~80% of households who own outright. The "true" Russian budget depends almost entirely on which side of the housing inheritance line you fall.</li>
-        <li><strong>Catch</strong> Sanctions-era data is contested. Rosstat's wage growth figures (+19% nominal in 2024) reflect a real war-economy labour shortage but also high inflation (8.5%). Foreign-currency conversion is volatile; ruble depreciation can change every figure here by ±15% within a quarter.</li>
       </ul>
     </div>
   </div>
 
   <div class="caveat" style="margin-top: 36px;">
     <div class="l">Final note on weighting</div>
-    <p>The "ranking" above weights <strong>family-of-four affordability with dual median earners</strong> in the capital city, paying rent. It would change if the persona were a single tech professional (Israel jumps to #1), a retiree drawing pension (France's lower tax on pensions matters), a student (Sweden's €0 tuition is decisive), or a Russian homeowner who inherited a Moscow flat (Russia jumps several places). The point isn't that one country is cheap and another expensive — it's that <em>cost of living</em> is a function of what the state already bought for you, what your parents owned before you, and which currency you happen to earn in.</p>
+    <p>The "ranking" above weights <strong>family-of-four affordability with dual median earners</strong>. It would change if the persona were a single tech professional (Israel jumps to #1), a retiree drawing pension (France's lower tax on pensions matters), or a student (Sweden's €0 tuition is decisive). The point isn't that one country is cheap and another expensive — it's that <em>cost of living</em> is a function of what the state already bought for you before you saw the bill.</p>
   </div>
 </section>
 
@@ -1507,41 +1233,6 @@
           <li><strong>Skatteverket (SE)</strong> <a href="https://www.skatteverket.se/">Sweden municipal + state tax 2024</a></li>
           <li><strong>Israel Tax Authority</strong> <a href="https://www.gov.il">Income tax brackets 2024–25</a></li>
         </ul>
-
-        <h3 style="margin-top: 32px;">Slovakia · income &amp; costs</h3>
-        <ul>
-          <li><strong>GPA / Profesia</strong> <a href="https://gpa.net/blogs/emea-1/slovakia-10-of-workers-earned-less-than-1-000-a-month-in-2024">Slovakia 2024 median €1,500, P10 €970, P90 €2,900</a></li>
-          <li><strong>Statistical Office of SR (ŠÚ SR)</strong> <a href="https://slovak.statistics.sk/">Average gross monthly wage 2024 · HICP 3.1%</a></li>
-          <li><strong>Platy.sk</strong> <a href="https://www.platy.sk/en/salaries-in-country">Profession-by-profession salary data (nurse, teacher, software engineer)</a></li>
-          <li><strong>Glassdoor / Levels.fyi</strong> <a href="https://www.glassdoor.com/Salaries/bratislava-software-engineer-salary-SRCH_IL.0,10_IM1661_KO11,28.htm">Bratislava software engineer €34,441–€58,608/yr</a></li>
-          <li><strong>OECD Taxing Wages 2025</strong> <a href="https://www.oecd.org/content/dam/oecd/en/publications/reports/2025/04/taxing-wages-2025-country-notes_16d47563/slovak-republic_ac4ab294/779b8d08-en.pdf">Slovak tax wedge 2024 = 42.6% (7th highest OECD)</a></li>
-          <li><strong>Crowe / Accace</strong> <a href="https://accace.com/tax-guideline-for-slovakia/">2025 tax guideline · income tax 19/25%, VAT 23%</a></li>
-          <li><strong>Eurostat / Statista</strong> <a href="https://www.statista.com/statistics/874070/gini-index-score-of-eu-countries/">Slovakia Gini 0.217 — lowest in EU (2024)</a></li>
-          <li><strong>Global Property Guide</strong> <a href="https://www.globalpropertyguide.com/europe/slovakia/rent">Bratislava 1BR rent ~€859/mo</a></li>
-          <li><strong>Numbeo Bratislava</strong> <a href="https://www.numbeo.com/cost-of-living/in/Bratislava">CoLI ~55.8 (NYC=100, excl. rent)</a></li>
-          <li><strong>imhd.sk / DPB</strong> <a href="https://imhd.sk/ba/doc/en/20709/20709">Bratislava monthly transit pass €36 (2024)</a></li>
-          <li><strong>Herrys / Investropa</strong> <a href="https://investropa.com/blogs/news/average-apartment-price-bratislava">Bratislava apartment €3,800–€5,200/m²</a></li>
-          <li><strong>Vatcalc</strong> <a href="https://www.vatcalc.com/slovakia/slovakia-vat-rise-to-22/">Slovak VAT raise to 23% from Jan 2025</a></li>
-          <li><strong>Eurydice</strong> <a href="https://eurydice.eacea.ec.europa.eu/national-education-systems/slovakia/access">Slovak materská škola fees set by municipality; free K-12</a></li>
-        </ul>
-
-        <h3 style="margin-top: 32px;">Russia · income &amp; costs</h3>
-        <ul>
-          <li><strong>Rosstat</strong> <a href="https://rosstat.gov.ru/">Median monthly wage 2024 ₽56,443 · mean ₽87,952</a></li>
-          <li><strong>The Moscow Times</strong> <a href="https://www.themoscowtimes.com/2025/03/03/russian-wage-growth-hits-16-year-high-in-december-2024-a88227">Russian wage growth Dec 2024 (₽128,665 incl. bonuses)</a></li>
-          <li><strong>Awara Group</strong> <a href="https://www.awaragroup.com/blog/progressive-personal-income-tax-scale-2025/">2025 progressive NDFL: 13/15/18/20/22% brackets</a></li>
-          <li><strong>Kremlin / President of Russia</strong> <a href="http://en.kremlin.ru/acts/news/74542">Progressive personal income tax law (signed 2024, effective Jan 2025)</a></li>
-          <li><strong>The Moscow Times</strong> <a href="https://www.themoscowtimes.com/2025/01/13/rental-prices-in-russia-rose-31-in-2024-experts-say-a87587">Moscow 1BR ₽73,000/mo (€730), +31% in 2024</a></li>
-          <li><strong>Levels.fyi / WorldSalaries</strong> <a href="https://worldsalaries.com/average-software-engineer-salary-in-moscow/russia/">Moscow software engineer ₽108k–₽170k/mo</a></li>
-          <li><strong>The Moscow Times</strong> <a href="https://www.themoscowtimes.com/2026/03/13/income-inequality-in-russia-approaching-record-highs-research-group-says-a92221">Rosstat Gini 0.41 (2024)</a></li>
-          <li><strong>Mos.ru / Troika</strong> <a href="https://transport.mos.ru/en/troika">Moscow Troika monthly pass ₽2,000 (€20)</a></li>
-          <li><strong>Vatupdate / Sovos</strong> <a href="https://sovos.com/regulatory-updates/vat/russia-vat-rate-raised-to-22/">Russia VAT 20% (2024); raised to 22% Jan 2026</a></li>
-          <li><strong>Numbeo Moscow</strong> <a href="https://www.numbeo.com/cost-of-living/in/Moscow">Moscow CoLI ~52 (NYC=100, excl. rent)</a></li>
-          <li><strong>EatMyIndex / Eat Healthy 365</strong> <a href="https://eathealthy365.com/russia-s-big-mac-successor-price-taste-real-value/">Vkusno i tochka "Big Hit" replacement ~₽185 (€1.85)</a></li>
-          <li><strong>Macrotrends</strong> <a href="https://www.macrotrends.net/global-metrics/countries/rus/russia/inflation-rate-cpi">Russia inflation 2024 ~8.5% YoY</a></li>
-          <li><strong>CISedu / Expatica</strong> <a href="https://www.expatica.com/ru/living/family/childcare-in-russia-106410/">Moscow public detsky sad ~₽2,400/mo (€24); private ~₽25,000 (€250)</a></li>
-          <li><strong>X-Rates / Bank of Russia</strong> <a href="https://www.cbr.ru/eng/currency_base/daily/">RUB/EUR reference rate 2024–2025 (avg ≈ 100 RUB / €)</a></li>
-        </ul>
       </div>
 
     </div>
@@ -1550,9 +1241,9 @@
 </section>
 
 <footer class="colophon wrap">
-  <span>The Price of Life · Issue 02 · 5-country</span>
+  <span>The Price of Life · Issue 01</span>
   <span>Compiled May 2026 · 2024–2025 source data</span>
-  <span>Currency normalization @ €1 = 4.00 ILS · 11.5 SEK · 100 RUB · EUR native for FR/SK</span>
+  <span>Currency normalization @ €1 = 4.00 ILS · 11.5 SEK</span>
 </footer>
 
 </div><!-- /.wrap -->
@@ -1566,17 +1257,9 @@
   const il = '#14b8a6';
   const se = '#f5b400';
   const fr = '#d6342f';
-  const ru = '#a78bfa';
-  const sk = '#fb923c';
   const ilSoft = 'rgba(20,184,166,.18)';
   const seSoft = 'rgba(245,180,0,.16)';
   const frSoft = 'rgba(214,52,47,.18)';
-  const ruSoft = 'rgba(167,139,250,.18)';
-  const skSoft = 'rgba(251,146,60,.18)';
-  const COLORS = { il, se, fr, ru, sk };
-  const COUNTRIES = ['il', 'se', 'fr', 'ru', 'sk'];
-  const DATA_LABEL = { il: 'Israel', se: 'Sweden', fr: 'France', ru: 'Russia', sk: 'Slovakia' };
-  const CHARTS = []; // populated as each chart is built
   const mono = "'JetBrains Mono', monospace";
   const sans = "'Manrope', sans-serif";
 
@@ -1605,16 +1288,14 @@
   const formatPct = (v) => v + '%';
 
   // ============ Chart 1 — Salaries ============
-  const chartSalaries = new Chart(document.getElementById('chartSalaries'), {
+  new Chart(document.getElementById('chartSalaries'), {
     type: 'bar',
     data: {
       labels: ['Median gross', 'Median net', 'Mean gross', 'Tech eng. gross'],
       datasets: [
         { label: 'Israel', backgroundColor: il, data: [2250, 1850, 3307, 8000] },
         { label: 'Sweden', backgroundColor: se, data: [3097, 2480, 3676, 5390] },
-        { label: 'France', backgroundColor: fr, data: [2735, 2190, 3470, 4883] },
-        { label: 'Russia', backgroundColor: ru, data: [565, 491, 880, 1400] },
-        { label: 'Slovakia', backgroundColor: sk, data: [1500, 1140, 1580, 4000] }
+        { label: 'France', backgroundColor: fr, data: [2735, 2190, 3470, 4883] }
       ]
     },
     options: {
@@ -1639,16 +1320,14 @@
   });
 
   // ============ Chart 2 — Professions ============
-  const chartProfessions = new Chart(document.getElementById('chartProfessions'), {
+  new Chart(document.getElementById('chartProfessions'), {
     type: 'bar',
     data: {
       labels: ['Cashier', 'Bus driver', 'Teacher (secondary)', 'Nurse', 'Software engineer'],
       datasets: [
         { label: 'Israel', backgroundColor: il, data: [1550, 2375, 2875, 3250, 8000] },
         { label: 'Sweden', backgroundColor: se, data: [2393, 2741, 3306, 3393, 5390] },
-        { label: 'France', backgroundColor: fr, data: [1800, 2200, 3000, 2800, 4883] },
-        { label: 'Russia', backgroundColor: ru, data: [330, 500, 915, 768, 1400] },
-        { label: 'Slovakia', backgroundColor: sk, data: [800, 1200, 1800, 1700, 4000] }
+        { label: 'France', backgroundColor: fr, data: [1800, 2200, 3000, 2800, 4883] }
       ]
     },
     options: {
@@ -1670,16 +1349,14 @@
   });
 
   // ============ Chart 4 — Tax wedge & VAT ============
-  const chartTax = new Chart(document.getElementById('chartTax'), {
+  new Chart(document.getElementById('chartTax'), {
     type: 'bar',
     data: {
       labels: ['Tax wedge (single avg earner, 2024)', 'Effective income tax (median earner)', 'VAT (standard rate)', 'Top marginal income tax'],
       datasets: [
         { label: 'Israel', backgroundColor: il, data: [23.9, 19, 18, 50] },
         { label: 'Sweden', backgroundColor: se, data: [41.0, 25, 25, 52.3] },
-        { label: 'France', backgroundColor: fr, data: [47.0, 23, 20, 49] },
-        { label: 'Russia*', backgroundColor: ru, data: [37, 13, 20, 22] },
-        { label: 'Slovakia', backgroundColor: sk, data: [42.6, 24.1, 23, 25] }
+        { label: 'France', backgroundColor: fr, data: [47.0, 23, 20, 49] }
       ]
     },
     options: {
@@ -1696,16 +1373,14 @@
   });
 
   // ============ Chart 5 — Monthly basket (absolute EUR) ============
-  const chartBasket = new Chart(document.getElementById('chartBasket'), {
+  new Chart(document.getElementById('chartBasket'), {
     type: 'bar',
     data: {
       labels: ['Groceries', 'Electricity', 'Water', 'Internet + mobile', 'Public transport', 'Restaurant (4 meals)', 'Supplemental health'],
       datasets: [
         { label: 'Israel',  backgroundColor: il, data: [500, 88, 28, 41, 56, 92, 28] },
         { label: 'Sweden',  backgroundColor: se, data: [250, 78, 17, 56, 89, 80, 10] },
-        { label: 'France',  backgroundColor: fr, data: [300, 75, 25, 45, 89, 72, 100] },
-        { label: 'Russia',  backgroundColor: ru, data: [140, 10, 5, 13, 20, 28, 5] },
-        { label: 'Slovakia',backgroundColor: sk, data: [250, 60, 15, 35, 36, 50, 10] }
+        { label: 'France',  backgroundColor: fr, data: [300, 75, 25, 45, 89, 72, 100] }
       ]
     },
     options: {
@@ -1723,27 +1398,23 @@
   });
 
   // ============ Chart 6 — Basket % of median net ============
-  const medianNet = { il: 1850, se: 2480, fr: 2190, ru: 491, sk: 1140 };
+  const medianNet = { il: 1850, se: 2480, fr: 2190 };
   const baseCosts = {
     il: { Groceries: 500, Electricity: 88, Water: 28, 'Internet + mobile': 41, 'Public transport': 56, 'Restaurant (4 meals)': 92, 'Supplemental health': 28 },
     se: { Groceries: 250, Electricity: 78, Water: 17, 'Internet + mobile': 56, 'Public transport': 89, 'Restaurant (4 meals)': 80, 'Supplemental health': 10 },
-    fr: { Groceries: 300, Electricity: 75, Water: 25, 'Internet + mobile': 45, 'Public transport': 89, 'Restaurant (4 meals)': 72, 'Supplemental health': 100 },
-    ru: { Groceries: 140, Electricity: 10, Water: 5, 'Internet + mobile': 13, 'Public transport': 20, 'Restaurant (4 meals)': 28, 'Supplemental health': 5 },
-    sk: { Groceries: 250, Electricity: 60, Water: 15, 'Internet + mobile': 35, 'Public transport': 36, 'Restaurant (4 meals)': 50, 'Supplemental health': 10 }
+    fr: { Groceries: 300, Electricity: 75, Water: 25, 'Internet + mobile': 45, 'Public transport': 89, 'Restaurant (4 meals)': 72, 'Supplemental health': 100 }
   };
   const cats = Object.keys(baseCosts.il);
   const pctData = (ctry) => cats.map(c => +(baseCosts[ctry][c] / medianNet[ctry] * 100).toFixed(1));
 
-  const chartBasketPct = new Chart(document.getElementById('chartBasketPct'), {
+  new Chart(document.getElementById('chartBasketPct'), {
     type: 'bar',
     data: {
       labels: cats,
       datasets: [
         { label: 'Israel', backgroundColor: il, data: pctData('il') },
         { label: 'Sweden', backgroundColor: se, data: pctData('se') },
-        { label: 'France', backgroundColor: fr, data: pctData('fr') },
-        { label: 'Russia', backgroundColor: ru, data: pctData('ru') },
-        { label: 'Slovakia', backgroundColor: sk, data: pctData('sk') }
+        { label: 'France', backgroundColor: fr, data: pctData('fr') }
       ]
     },
     options: {
@@ -1755,24 +1426,20 @@
       },
       plugins: {
         legend: { position: 'bottom', align: 'end' },
-        tooltip: { callbacks: { label: (ctx) => {
-          const map = { Israel:'il', Sweden:'se', France:'fr', Russia:'ru', Slovakia:'sk' };
-          const key = map[ctx.dataset.label] || 'il';
-          return `${ctx.dataset.label}: ${ctx.parsed.x}% of median net (€${medianNet[key]})`;
-        } } }
+        tooltip: { callbacks: { label: (ctx) => `${ctx.dataset.label}: ${ctx.parsed.x}% of median net (€${medianNet[ctx.dataset.label === 'Israel' ? 'il' : ctx.dataset.label === 'Sweden' ? 'se' : 'fr']})` } }
       }
     }
   });
 
   // ============ Chart 8 — Price/Income ratio ============
-  const chartPriceIncome = new Chart(document.getElementById('chartPriceIncome'), {
+  new Chart(document.getElementById('chartPriceIncome'), {
     type: 'bar',
     data: {
-      labels: [],
+      labels: ['Tel Aviv', 'Paris', 'Stockholm'],
       datasets: [{
         label: 'Years of gross median salary to buy a 4-room apt',
-        data: [],
-        backgroundColor: [],
+        data: [17.0, 14.0, 11.0],
+        backgroundColor: [il, fr, se],
         borderRadius: 0
       }]
     },
@@ -1780,7 +1447,7 @@
       maintainAspectRatio: false,
       indexAxis: 'y',
       scales: {
-        x: { beginAtZero: true, max: 50, ticks: { color: inkDim, font: { family: mono, size: 11 }, callback: (v) => v + ' yrs' }, grid: { color: '#1c1d22' } },
+        x: { beginAtZero: true, max: 20, ticks: { color: inkDim, font: { family: mono, size: 11 }, callback: (v) => v + ' yrs' }, grid: { color: '#1c1d22' } },
         y: { ticks: { color: ink, font: { family: mono, size: 12, weight: 600 } }, grid: { display: false } }
       },
       plugins: {
@@ -1791,16 +1458,14 @@
   });
 
   // ============ Chart 9 — Childcare ============
-  const chartChildcare = new Chart(document.getElementById('chartChildcare'), {
+  new Chart(document.getElementById('chartChildcare'), {
     type: 'bar',
     data: {
       labels: ['Public / subsidized', 'Private full price'],
       datasets: [
         { label: 'Israel', backgroundColor: il, data: [400, 950] },
         { label: 'Sweden', backgroundColor: se, data: [155, 155] },
-        { label: 'France', backgroundColor: fr, data: [400, 700] },
-        { label: 'Russia', backgroundColor: ru, data: [24, 250] },
-        { label: 'Slovakia', backgroundColor: sk, data: [50, 400] }
+        { label: 'France', backgroundColor: fr, data: [400, 700] }
       ]
     },
     options: {
@@ -1817,21 +1482,21 @@
   });
 
   // ============ Chart 10 — Big Mac + Numbeo ============
-  const chartBigMac = new Chart(document.getElementById('chartBigMac'), {
+  new Chart(document.getElementById('chartBigMac'), {
     type: 'bar',
     data: {
-      labels: [],
+      labels: ['Israel', 'Sweden', 'France'],
       datasets: [
         {
-          label: 'Big Mac / Big Hit (€) · Jan 2025',
-          data: [],
-          backgroundColor: [],
+          label: 'Big Mac (€) · Jan 2025',
+          data: [6.10, 5.44, 5.50],
+          backgroundColor: [il, se, fr],
           yAxisID: 'y',
           borderRadius: 0
         },
         {
           label: 'Numbeo Cost of Living Index (NYC=100, excl. rent)',
-          data: [],
+          data: [76.2, 61.8, 68.2],
           backgroundColor: 'transparent',
           borderColor: ink,
           borderWidth: 2,
@@ -1858,16 +1523,14 @@
   });
 
   // ============ Chart 11 — Composite radar ============
-  const chartRadar = new Chart(document.getElementById('chartRadar'), {
+  new Chart(document.getElementById('chartRadar'), {
     type: 'radar',
     data: {
       labels: ['Wage (PPP)', 'Rent friendliness', 'Tax efficiency', 'Free services', 'Food affordability', 'Inequality (lower=better)'],
       datasets: [
         { label: 'Israel', data: [82, 28, 92, 32, 38, 36], backgroundColor: ilSoft, borderColor: il, pointBackgroundColor: il, borderWidth: 2, pointRadius: 4 },
         { label: 'Sweden', data: [89, 72, 60, 95, 84, 86], backgroundColor: seSoft, borderColor: se, pointBackgroundColor: se, borderWidth: 2, pointRadius: 4 },
-        { label: 'France', data: [92, 56, 48, 78, 78, 70], backgroundColor: frSoft, borderColor: fr, pointBackgroundColor: fr, borderWidth: 2, pointRadius: 4 },
-        { label: 'Russia', data: [30, 10, 85, 55, 40, 15], backgroundColor: ruSoft, borderColor: ru, pointBackgroundColor: ru, borderWidth: 2, pointRadius: 4 },
-        { label: 'Slovakia', data: [50, 35, 30, 75, 55, 95], backgroundColor: skSoft, borderColor: sk, pointBackgroundColor: sk, borderWidth: 2, pointRadius: 4 }
+        { label: 'France', data: [92, 56, 48, 78, 78, 70], backgroundColor: frSoft, borderColor: fr, pointBackgroundColor: fr, borderWidth: 2, pointRadius: 4 }
       ]
     },
     options: {
@@ -1887,14 +1550,19 @@
   });
 
   // ============ Chart 12 — Family surplus ============
-  const chartSurplus = new Chart(document.getElementById('chartSurplus'), {
+  new Chart(document.getElementById('chartSurplus'), {
     type: 'bar',
     data: {
-      labels: [],
+      labels: ['Sweden (Stockholm)', 'France (Paris area)', 'Israel (Tel Aviv area)'],
       datasets: [{
         label: 'Monthly surplus / deficit after family basket · EUR',
-        data: [],
-        backgroundColor: [],
+        data: [2037, 1332, -193],
+        backgroundColor: (ctx) => {
+          const v = ctx.raw;
+          if (v < 0) return fr;
+          const colors = [se, fr, il];
+          return colors[ctx.dataIndex];
+        },
         borderRadius: 0
       }]
     },
@@ -1911,134 +1579,6 @@
       }
     }
   });
-
-  // ============ Filterable single-dataset chart data ============
-
-  const PRICE_INCOME_DATA = [
-    { c: 'ru', label: 'Moscow',    val: 47.0 },
-    { c: 'sk', label: 'Bratislava', val: 19.0 },
-    { c: 'il', label: 'Tel Aviv',  val: 17.0 },
-    { c: 'fr', label: 'Paris',     val: 14.0 },
-    { c: 'se', label: 'Stockholm', val: 11.0 }
-  ];
-
-  const BIGMAC_DATA = [
-    { c: 'il', label: 'Israel',   bigmac: 6.10, numbeo: 76.2 },
-    { c: 'se', label: 'Sweden',   bigmac: 5.44, numbeo: 61.8 },
-    { c: 'fr', label: 'France',   bigmac: 5.50, numbeo: 68.2 },
-    { c: 'sk', label: 'Slovakia', bigmac: 4.95, numbeo: 55.8 },
-    { c: 'ru', label: 'Russia',   bigmac: 1.85, numbeo: 52.3 }
-  ];
-
-  const SURPLUS_DATA = [
-    { c: 'se', label: 'Sweden (Stockholm)',      val:  2037 },
-    { c: 'fr', label: 'France (Paris area)',     val:  1332 },
-    { c: 'il', label: 'Israel (Tel Aviv area)',  val:  -193 },
-    { c: 'sk', label: 'Slovakia (Bratislava)',   val:  -102 },
-    { c: 'ru', label: 'Russia (Moscow renter)',  val:  -707 }
-  ];
-
-  function renderPriceIncome() {
-    const visible = PRICE_INCOME_DATA.filter(d => ACTIVE.has(d.c));
-    chartPriceIncome.data.labels = visible.map(d => d.label);
-    chartPriceIncome.data.datasets[0].data = visible.map(d => d.val);
-    chartPriceIncome.data.datasets[0].backgroundColor = visible.map(d => COLORS[d.c]);
-    chartPriceIncome.update();
-  }
-
-  function renderBigMac() {
-    const visible = BIGMAC_DATA.filter(d => ACTIVE.has(d.c));
-    chartBigMac.data.labels = visible.map(d => d.label);
-    chartBigMac.data.datasets[0].data = visible.map(d => d.bigmac);
-    chartBigMac.data.datasets[0].backgroundColor = visible.map(d => COLORS[d.c]);
-    chartBigMac.data.datasets[1].data = visible.map(d => d.numbeo);
-    chartBigMac.update();
-  }
-
-  function renderSurplus() {
-    const visible = SURPLUS_DATA.filter(d => ACTIVE.has(d.c));
-    chartSurplus.data.labels = visible.map(d => d.label);
-    chartSurplus.data.datasets[0].data = visible.map(d => d.val);
-    chartSurplus.data.datasets[0].backgroundColor = visible.map(d => COLORS[d.c]);
-    chartSurplus.update();
-  }
-
-  // ============ Filter state & application ============
-
-  const ACTIVE = new Set(COUNTRIES);
-  const MULTI_CHARTS = [chartSalaries, chartProfessions, chartTax, chartBasket, chartBasketPct, chartChildcare, chartRadar];
-
-  function applyFilter() {
-    // Multi-dataset charts: hide/show by dataset label
-    MULTI_CHARTS.forEach(chart => {
-      chart.data.datasets.forEach((ds, i) => {
-        const code = Object.keys(DATA_LABEL).find(k => ds.label && (ds.label === DATA_LABEL[k] || ds.label.startsWith(DATA_LABEL[k])));
-        if (code) chart.setDatasetVisibility(i, ACTIVE.has(code));
-      });
-      chart.update();
-    });
-
-    // Single-dataset charts: re-render
-    renderPriceIncome();
-    renderBigMac();
-    renderSurplus();
-
-    // Static HTML elements
-    COUNTRIES.forEach(c => {
-      const active = ACTIVE.has(c);
-      document.querySelectorAll(`[data-country="${c}"]`).forEach(el => {
-        el.classList.toggle('hidden', !active);
-      });
-      const pill = document.querySelector(`.filter-pill[data-toggle="${c}"]`);
-      if (pill) pill.classList.toggle('active', active);
-    });
-
-    // Update CSS grid column count
-    const n = Math.max(1, ACTIVE.size);
-    document.querySelectorAll('.verdict-grid, .stat-row, .takeaways, .free-grid').forEach(g => {
-      g.style.setProperty('--active', n);
-    });
-
-    // Update borders on free-grid last-column cells
-    document.querySelectorAll('.free-grid > div').forEach(el => el.classList.remove('last-col'));
-    document.querySelectorAll('.free-grid').forEach(grid => {
-      const rows = [];
-      let row = [];
-      Array.from(grid.children).forEach(child => {
-        if (child.classList.contains('hidden')) return;
-        row.push(child);
-        if (row.length === n + 1) { // label + n country columns
-          row[row.length - 1].classList.add('last-col');
-          rows.push(row);
-          row = [];
-        }
-      });
-    });
-  }
-
-  function toggleCountry(c) {
-    if (ACTIVE.has(c)) {
-      if (ACTIVE.size === 1) return; // Don't allow zero
-      ACTIVE.delete(c);
-    } else {
-      ACTIVE.add(c);
-    }
-    applyFilter();
-  }
-
-  function resetFilter() {
-    COUNTRIES.forEach(c => ACTIVE.add(c));
-    applyFilter();
-  }
-
-  document.querySelectorAll('.filter-pill[data-toggle]').forEach(btn => {
-    btn.addEventListener('click', () => toggleCountry(btn.dataset.toggle));
-  });
-  const resetBtn = document.querySelector('.filter-reset');
-  if (resetBtn) resetBtn.addEventListener('click', resetFilter);
-
-  // Initial render
-  applyFilter();
 
 })();
 </script>

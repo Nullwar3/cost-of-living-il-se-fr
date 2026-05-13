@@ -1,0 +1,2049 @@
+<!doctype html>
+<html lang="ru" id="root">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Цена жизни — Израиль · Швеция · Франция · Россия · Словакия · 2024–2025</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,700;9..144,900&family=Newsreader:opsz,wght@6..72,300;6..72,500;6..72,700&family=Manrope:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+<style>
+  :root {
+    --bg: #0c0c0e;
+    --ink: #ece7dc;
+    --ink-dim: #8a857a;
+    --ink-faint: #4a463f;
+    --paper: #15161a;
+    --paper-2: #1c1d22;
+    --line: #2b2c32;
+
+    --il: #14b8a6;   /* teal */
+    --se: #f5b400;   /* warm gold */
+    --fr: #d6342f;   /* claret */
+    --ru: #a78bfa;   /* slate violet */
+    --sk: #fb923c;   /* warm orange */
+
+    --il-glow: rgba(20,184,166,.18);
+    --se-glow: rgba(245,180,0,.16);
+    --fr-glow: rgba(214,52,47,.18);
+    --ru-glow: rgba(167,139,250,.18);
+    --sk-glow: rgba(251,146,60,.18);
+
+    --serif: 'Fraunces', 'Times New Roman', serif;
+    --sans: 'Manrope', system-ui, sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+  }
+
+  :root[lang="ru"] {
+    --serif: 'Newsreader', 'PT Serif', 'Times New Roman', serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--bg); color: var(--ink); font-family: var(--sans); line-height: 1.55; }
+  body {
+    background-image:
+      radial-gradient(ellipse at top, rgba(20,184,166,.04) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 30%, rgba(245,180,0,.03) 0%, transparent 50%),
+      radial-gradient(ellipse at 20% 70%, rgba(214,52,47,.03) 0%, transparent 50%),
+      radial-gradient(ellipse at 70% 90%, rgba(167,139,250,.03) 0%, transparent 50%),
+      radial-gradient(ellipse at 30% 40%, rgba(251,146,60,.03) 0%, transparent 50%);
+  }
+
+  .wrap { max-width: 1240px; margin: 0 auto; padding: 0 32px; }
+
+  /* MASTHEAD */
+  .masthead {
+    border-bottom: 1px solid var(--line);
+    padding: 18px 0;
+    display: flex; align-items: center; justify-content: space-between;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+  }
+  .masthead .brand { color: var(--ink); font-weight: 700; letter-spacing: .22em; }
+  .masthead .meta { display: flex; gap: 32px; }
+  .masthead .meta span::before { content: '· '; color: var(--ink-faint); padding-right: 6px; }
+
+  /* HERO */
+  .hero { padding: 110px 0 90px; border-bottom: 1px solid var(--line); position: relative; }
+  .hero .kicker {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .26em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    margin-bottom: 26px;
+  }
+  .hero h1 {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: clamp(48px, 8vw, 112px);
+    line-height: .97;
+    letter-spacing: -0.025em;
+    margin-bottom: 36px;
+  }
+  .hero h1 em {
+    font-style: italic;
+    font-weight: 500;
+    background: linear-gradient(94deg, var(--il) 0%, var(--se) 50%, var(--fr) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .hero .standfirst {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: clamp(18px, 1.8vw, 22px);
+    line-height: 1.5;
+    color: var(--ink);
+    max-width: 760px;
+    margin-bottom: 64px;
+  }
+  .hero .standfirst strong { color: var(--ink); font-weight: 600; }
+
+  /* VERDICT CARDS */
+  .verdict-grid {
+    display: grid;
+    grid-template-columns: repeat(var(--active, 5), 1fr);
+    gap: 12px;
+  }
+  .verdict {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    padding: 28px 26px 32px;
+    position: relative;
+    overflow: hidden;
+  }
+  .verdict::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: var(--accent, var(--ink-dim));
+  }
+  .verdict.il { --accent: var(--il); }
+  .verdict.se { --accent: var(--se); }
+  .verdict.fr { --accent: var(--fr); }
+  .verdict.ru { --accent: var(--ru); }
+  .verdict.sk { --accent: var(--sk); }
+  .verdict .flag {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .22em;
+    color: var(--accent);
+    margin-bottom: 18px;
+    text-transform: uppercase;
+  }
+  .verdict h3 {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 1.05;
+    margin-bottom: 14px;
+    letter-spacing: -0.01em;
+  }
+  .verdict { padding: 22px 20px 26px; }
+  .verdict p { font-size: 13.5px; margin-bottom: 16px; }
+  .verdict .score .big { font-size: 38px; }
+  .verdict p {
+    font-size: 14.5px;
+    color: var(--ink-dim);
+    line-height: 1.6;
+    margin-bottom: 22px;
+  }
+  .verdict .score {
+    display: flex; align-items: baseline; gap: 10px;
+    border-top: 1px dashed var(--line);
+    padding-top: 18px;
+  }
+  .verdict .score .big {
+    font-family: var(--serif);
+    font-size: 44px; font-weight: 500;
+    color: var(--accent);
+    line-height: 1;
+    letter-spacing: -0.04em;
+  }
+  .verdict .score .lbl {
+    font-family: var(--mono); font-size: 10px; letter-spacing: .18em;
+    color: var(--ink-dim); text-transform: uppercase;
+  }
+
+  /* SECTION */
+  section.chapter { padding: 110px 0; border-bottom: 1px solid var(--line); }
+  .ch-head {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 60px;
+    margin-bottom: 56px;
+  }
+  .ch-num {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .26em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    padding-top: 12px;
+    border-top: 1px solid var(--ink);
+    color: var(--ink);
+  }
+  .ch-head h2 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(34px, 4.4vw, 60px);
+    line-height: 1.04;
+    letter-spacing: -0.02em;
+    margin-bottom: 22px;
+  }
+  .ch-head h2 em { font-style: italic; font-weight: 500; }
+  .ch-head .deck {
+    font-family: var(--serif);
+    font-size: 19px;
+    color: var(--ink-dim);
+    line-height: 1.55;
+    max-width: 700px;
+    font-weight: 300;
+  }
+
+  /* CHART CARD */
+  .chart-card {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    padding: 36px 36px 32px;
+    margin-bottom: 28px;
+    position: relative;
+  }
+  .chart-card .label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    margin-bottom: 6px;
+  }
+  .chart-card h4 {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: 24px;
+    margin-bottom: 6px;
+    letter-spacing: -0.01em;
+  }
+  .chart-card .sub {
+    font-size: 13.5px;
+    color: var(--ink-dim);
+    margin-bottom: 32px;
+    max-width: 760px;
+    line-height: 1.5;
+  }
+  .chart-wrap { position: relative; height: 360px; }
+  .chart-wrap.tall { height: 480px; }
+  .chart-wrap.short { height: 280px; }
+
+  /* TABLE */
+  table.data {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--mono);
+    font-size: 12.5px;
+  }
+  table.data th, table.data td {
+    padding: 14px 16px;
+    text-align: right;
+    border-bottom: 1px solid var(--line);
+  }
+  table.data th:first-child, table.data td:first-child {
+    text-align: left;
+    font-family: var(--sans);
+    color: var(--ink);
+  }
+  table.data thead th {
+    font-size: 10px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    font-weight: 600;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--ink-dim);
+  }
+  table.data tbody td { color: var(--ink); }
+  table.data tbody td.dim { color: var(--ink-dim); }
+  table.data .il { color: var(--il); }
+  table.data .se { color: var(--se); }
+  table.data .fr { color: var(--fr); }
+  table.data .ru { color: var(--ru); }
+  table.data .sk { color: var(--sk); }
+  table.data th[data-country].hidden, table.data td[data-country].hidden { display: none; }
+  table.data tr:last-child td { border-bottom: none; }
+  table.data .total td { font-weight: 700; border-top: 1px solid var(--ink-dim); padding-top: 18px; }
+
+  /* PULL QUOTE */
+  .pull {
+    padding: 80px 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    text-align: center;
+    background: var(--paper);
+  }
+  .pull .pull-inner {
+    max-width: 920px;
+    margin: 0 auto;
+  }
+  .pull blockquote {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-style: italic;
+    font-size: clamp(28px, 3.4vw, 48px);
+    line-height: 1.18;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+  .pull blockquote em.h { font-style: normal; font-weight: 500; }
+  .pull blockquote .il { color: var(--il); }
+  .pull blockquote .se { color: var(--se); }
+  .pull blockquote .fr { color: var(--fr); }
+  .pull blockquote .ru { color: var(--ru); }
+  .pull blockquote .sk { color: var(--sk); }
+  .pull cite {
+    display: block;
+    margin-top: 28px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .22em;
+    color: var(--ink-dim);
+    font-style: normal;
+    text-transform: uppercase;
+  }
+
+  /* BIG STATS */
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(var(--active, 5), 1fr);
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+  .stat {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    padding: 28px 26px;
+    position: relative;
+    overflow: hidden;
+  }
+  .stat::after {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0; width: 3px;
+    background: var(--accent, var(--ink-dim));
+  }
+  .stat.il { --accent: var(--il); }
+  .stat.se { --accent: var(--se); }
+  .stat.fr { --accent: var(--fr); }
+  .stat.ru { --accent: var(--ru); }
+  .stat.sk { --accent: var(--sk); }
+  .stat { padding: 22px 20px; }
+  .stat .num { font-size: 38px; }
+  .stat .ctry {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .22em;
+    color: var(--accent);
+    margin-bottom: 12px;
+    text-transform: uppercase;
+  }
+  .stat .num {
+    font-family: var(--serif);
+    font-size: 48px;
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    margin-bottom: 8px;
+    color: var(--ink);
+  }
+  .stat .num .pct { color: var(--accent); }
+  .stat .cap {
+    font-size: 12.5px;
+    color: var(--ink-dim);
+    line-height: 1.5;
+  }
+
+  /* FREE-SERVICES TABLE */
+  .free-grid {
+    display: grid;
+    grid-template-columns: 220px repeat(var(--active, 5), 1fr);
+    background: var(--paper);
+    border: 1px solid var(--line);
+  }
+  .free-grid > div {
+    padding: 18px 16px;
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    font-size: 12.5px;
+  }
+  .free-grid > div.last-col { border-right: none; }
+  .free-grid > div[data-country].hidden { display: none; }
+  .free-grid .head {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    background: var(--paper-2);
+  }
+  .free-grid .head.il { color: var(--il); }
+  .free-grid .head.se { color: var(--se); }
+  .free-grid .head.fr { color: var(--fr); }
+  .free-grid .head.ru { color: var(--ru); }
+  .free-grid .head.sk { color: var(--sk); }
+  .free-grid .row-label { color: var(--ink); font-weight: 600; background: var(--paper-2); }
+  .free-grid .free {
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .free-grid .free::before {
+    content: '✓ ';
+    color: var(--se);
+    font-weight: 700;
+    margin-right: 4px;
+  }
+  .free-grid .cost { color: var(--ink-dim); font-family: var(--mono); font-size: 12.5px; }
+  .free-grid .partial { color: var(--ink); }
+  .free-grid .partial::before {
+    content: '◐ ';
+    color: var(--ink-dim);
+    margin-right: 4px;
+  }
+
+  /* TAKEAWAYS / SUMMARY */
+  .takeaways {
+    display: grid;
+    grid-template-columns: repeat(var(--active, 5), 1fr);
+    gap: 0;
+    background: var(--paper);
+    border: 1px solid var(--line);
+  }
+  .takeaway {
+    padding: 36px 30px;
+    border-right: 1px solid var(--line);
+    position: relative;
+  }
+  .takeaway:last-child { border-right: none; }
+  .takeaway::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: var(--accent);
+  }
+  .takeaway.il { --accent: var(--il); }
+  .takeaway.se { --accent: var(--se); }
+  .takeaway.fr { --accent: var(--fr); }
+  .takeaway.ru { --accent: var(--ru); }
+  .takeaway.sk { --accent: var(--sk); }
+  .takeaway { padding: 28px 22px; }
+  .takeaway .rank { font-size: 64px; }
+  .takeaway .ctry-name { font-size: 24px; }
+  .takeaway .rank {
+    font-family: var(--serif);
+    font-size: 80px;
+    font-weight: 500;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 14px;
+    letter-spacing: -0.04em;
+  }
+  .takeaway .ctry-name {
+    font-family: var(--serif);
+    font-size: 28px;
+    font-weight: 500;
+    margin-bottom: 22px;
+  }
+  .takeaway ul { list-style: none; margin: 0; padding: 0; }
+  .takeaway li {
+    padding: 12px 0;
+    border-top: 1px solid var(--line);
+    font-size: 13.5px;
+    color: var(--ink-dim);
+    line-height: 1.55;
+  }
+  .takeaway li strong {
+    color: var(--ink);
+    font-weight: 600;
+    display: block;
+    margin-bottom: 4px;
+    font-size: 13px;
+    font-family: var(--mono);
+    letter-spacing: .04em;
+    text-transform: uppercase;
+  }
+
+  /* CAVEAT BOX */
+  .caveat {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--ink-dim);
+    padding: 28px 32px;
+    margin: 0 0 28px 0;
+  }
+  .caveat .l {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    margin-bottom: 14px;
+  }
+  .caveat p {
+    font-size: 14px;
+    color: var(--ink-dim);
+    line-height: 1.7;
+    margin-bottom: 10px;
+  }
+  .caveat p:last-child { margin-bottom: 0; }
+  .caveat strong { color: var(--ink); font-weight: 600; }
+  .caveat code {
+    font-family: var(--mono);
+    font-size: 12px;
+    background: var(--paper-2);
+    padding: 2px 6px;
+    border-radius: 2px;
+    color: var(--ink);
+  }
+
+  /* SOURCES */
+  .sources {
+    padding: 90px 0 110px;
+    background: var(--paper);
+    border-top: 1px solid var(--line);
+  }
+  .sources h2 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 36px;
+    margin-bottom: 36px;
+    letter-spacing: -0.01em;
+  }
+  .sources .src-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px 36px;
+  }
+  .sources ul {
+    list-style: none;
+    padding: 0;
+  }
+  .sources ul li {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    color: var(--ink-dim);
+    padding: 8px 0;
+    border-bottom: 1px solid var(--line);
+    line-height: 1.5;
+  }
+  .sources ul li strong {
+    color: var(--ink);
+    font-weight: 700;
+    margin-right: 8px;
+  }
+  .sources ul li a {
+    color: var(--ink-dim);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--ink-faint);
+  }
+  .sources ul li a:hover { color: var(--ink); border-bottom-color: var(--ink); }
+  .sources h3 {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin-bottom: 14px;
+    margin-top: 0;
+  }
+
+  /* COLOPHON */
+  .colophon {
+    border-top: 1px solid var(--line);
+    padding: 36px 0 48px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .14em;
+    color: var(--ink-dim);
+    text-transform: uppercase;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  /* RANGE / DISTRIBUTION CSS */
+  .range-row {
+    display: grid;
+    grid-template-columns: 84px 1fr 110px;
+    align-items: center;
+    gap: 22px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .range-row:last-child { border-bottom: none; }
+  .range-row .name {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .range-row.il { --accent: var(--il); }
+  .range-row.se { --accent: var(--se); }
+  .range-row.fr { --accent: var(--fr); }
+  .range-row.ru { --accent: var(--ru); }
+  .range-row.sk { --accent: var(--sk); }
+  .range-bar {
+    position: relative;
+    height: 38px;
+    background: linear-gradient(90deg, transparent, var(--accent-glow), transparent);
+    border-radius: 0;
+  }
+  .range-bar .track {
+    position: absolute;
+    top: 50%; transform: translateY(-50%);
+    height: 1px;
+    background: var(--line);
+    left: 0; right: 0;
+  }
+  .range-bar .seg {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 8px;
+    background: var(--accent);
+    opacity: .35;
+  }
+  .range-bar .dot {
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 3px solid var(--bg);
+    box-shadow: 0 0 0 1px var(--accent);
+  }
+  .range-bar .lbl {
+    position: absolute;
+    top: 100%;
+    transform: translateX(-50%);
+    font-family: var(--mono);
+    font-size: 10.5px;
+    color: var(--ink-dim);
+    margin-top: 4px;
+    white-space: nowrap;
+  }
+  .range-row.il .range-bar .seg, .range-row.il .range-bar .dot { background-color: var(--il); }
+  .range-row.se .range-bar .seg, .range-row.se .range-bar .dot { background-color: var(--se); }
+  .range-row.fr .range-bar .seg, .range-row.fr .range-bar .dot { background-color: var(--fr); }
+  .range-row.ru .range-bar .seg, .range-row.ru .range-bar .dot { background-color: var(--ru); }
+  .range-row.sk .range-bar .seg, .range-row.sk .range-bar .dot { background-color: var(--sk); }
+  .range-row.il { --accent-glow: var(--il-glow); }
+  .range-row.se { --accent-glow: var(--se-glow); }
+  .range-row.fr { --accent-glow: var(--fr-glow); }
+  .range-row.ru { --accent-glow: var(--ru-glow); }
+  .range-row.sk { --accent-glow: var(--sk-glow); }
+  [data-country].hidden { display: none !important; }
+  .range-row .gini {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--ink);
+    text-align: right;
+  }
+  .range-row .gini .lab {
+    font-size: 9px;
+    color: var(--ink-dim);
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    display: block;
+  }
+
+  /* RENT-BURDEN bars */
+  .burden { margin-top: 8px; }
+  .burden-row {
+    display: grid;
+    grid-template-columns: 130px 1fr 84px;
+    gap: 22px;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .burden-row:last-child { border-bottom: none; }
+  .burden-row .who {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .burden-row .who small { color: var(--ink-dim); font-size: 9px; display: block; margin-top: 2px; }
+  .burden-row.il { --accent: var(--il); }
+  .burden-row.se { --accent: var(--se); }
+  .burden-row.fr { --accent: var(--fr); }
+  .burden-row.ru { --accent: var(--ru); }
+  .burden-row.sk { --accent: var(--sk); }
+  .burden-bar {
+    height: 28px;
+    background: var(--paper-2);
+    position: relative;
+    overflow: hidden;
+  }
+  .burden-bar .fill {
+    position: absolute;
+    inset: 0 auto 0 0;
+    background: var(--accent);
+    opacity: .82;
+    transform-origin: left;
+    width: var(--w, 0%);
+  }
+  .burden-bar .ref {
+    position: absolute;
+    left: 50%; top: 0; bottom: 0;
+    width: 1px;
+    background: var(--ink-faint);
+  }
+  .burden-bar .ref::after {
+    content: '50%';
+    position: absolute;
+    top: 100%;
+    transform: translateX(-50%);
+    font-family: var(--mono);
+    font-size: 8.5px;
+    color: var(--ink-faint);
+    margin-top: 3px;
+  }
+  .burden-bar.over .fill { background: var(--fr); opacity: .9; }
+  .burden-row .pct {
+    font-family: var(--mono);
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--accent);
+    text-align: right;
+  }
+  .burden-row.over .pct { color: var(--fr); }
+
+  /* COUNTRY FILTER */
+  .country-filter {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(12, 12, 14, 0.94);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+    padding: 14px 0;
+    margin: 0 -32px 0 -32px;
+  }
+  .country-filter-inner {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 32px;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+    font-family: var(--mono);
+  }
+  .country-filter .lbl {
+    font-size: 10px;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    margin-right: 10px;
+  }
+  .filter-pill {
+    background: transparent;
+    border: 1px solid var(--line);
+    color: var(--ink-dim);
+    padding: 7px 14px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.14s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .filter-pill::before {
+    content: '';
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent, var(--ink-faint));
+    transition: all 0.14s ease;
+  }
+  .filter-pill.active {
+    color: var(--ink);
+    border-color: var(--accent);
+    background: rgba(255,255,255,0.02);
+  }
+  .filter-pill.active::before {
+    box-shadow: 0 0 0 3px rgba(255,255,255,0.04);
+  }
+  .filter-pill:not(.active)::before {
+    background: var(--ink-faint);
+  }
+  .filter-pill:not(.active) {
+    opacity: 0.55;
+  }
+  .filter-pill:hover {
+    opacity: 1;
+    color: var(--ink);
+  }
+  .filter-pill.il { --accent: var(--il); }
+  .filter-pill.se { --accent: var(--se); }
+  .filter-pill.fr { --accent: var(--fr); }
+  .filter-pill.ru { --accent: var(--ru); }
+  .filter-pill.sk { --accent: var(--sk); }
+  .filter-reset {
+    background: transparent;
+    border: none;
+    color: var(--ink-dim);
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    cursor: pointer;
+    padding: 7px 10px;
+    margin-left: auto;
+  }
+  .filter-reset:hover { color: var(--ink); }
+
+  .lang-switch {
+    display: inline-flex;
+    border: 1px solid var(--line);
+    margin-left: 14px;
+  }
+  .lang-btn {
+    background: transparent;
+    border: none;
+    color: var(--ink-dim);
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    padding: 7px 12px;
+    cursor: pointer;
+    transition: all 0.14s ease;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .lang-btn.active {
+    background: var(--ink);
+    color: var(--bg);
+  }
+  .lang-btn:not(.active):hover { color: var(--ink); }
+
+  /* MEDIA */
+  @media (max-width: 980px) {
+    .ch-head { grid-template-columns: 1fr; gap: 18px; }
+    .verdict-grid, .stat-row, .takeaways { grid-template-columns: 1fr; }
+    .verdict h3 { font-size: 28px; }
+    .takeaway { border-right: none; border-bottom: 1px solid var(--line); }
+    .free-grid { grid-template-columns: 1fr; }
+    .free-grid > div { border-right: none; }
+    .sources .src-grid { grid-template-columns: 1fr; }
+  }
+
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+<header class="masthead">
+  <div class="brand">КОЛИЧЕСТВЕННЫЙ БРИФИНГ</div>
+  <div class="meta">
+    <span>Данные за 2024–2025</span>
+    <span>Все значения в евро (€)</span>
+    <span>Выпуск 02</span>
+  </div>
+</header>
+
+<div class="country-filter">
+  <div class="country-filter-inner">
+    <span class="lbl">Сравнить</span>
+    <button class="filter-pill il active" data-toggle="il">Израиль</button>
+    <button class="filter-pill se active" data-toggle="se">Швеция</button>
+    <button class="filter-pill fr active" data-toggle="fr">Франция</button>
+    <button class="filter-pill ru active" data-toggle="ru">Россия</button>
+    <button class="filter-pill sk active" data-toggle="sk">Словакия</button>
+    <button class="filter-reset" data-reset>Сбросить</button>
+    <div class="lang-switch" role="group" aria-label="Language">
+      <a class="lang-btn" href="./">EN</a>
+      <a class="lang-btn active" href="ru.html">RU</a>
+    </div>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="kicker">Стоимость жизни · Доходы · Неравенство</div>
+  <h1>Цена <em>жизни</em>.<br/>Пять стран,<br/>одна валюта.</h1>
+  <p class="standfirst">
+    Параллельный анализ того, во что обходится жизнь в <strong>Израиле</strong>, <strong>Швеции</strong>, <strong>Франции</strong>, <strong>России</strong> и <strong>Словакии</strong> — и сколько эти страны платят вам взамен. Все значения нормализованы в <strong>евро</strong>, соотнесены с медианной чистой зарплатой и сверены с авторитетными источниками (ОЭСР, Евростат, INSEE, ЦБС Израиля, SCB, Росстат, ŠÚ SR, Numbeo, The Economist). Словакия — новый участник: страна еврозоны и член ЕС с самым низким уровнем неравенства доходов во всём ЕС и седьмым по тяжести налоговым клином в ОЭСР — полезная средняя точка, на фоне которой остальные раскрывают свои крайности. Используйте фильтр выше, чтобы включать или скрывать страны на любом графике ниже.
+  </p>
+
+  <div class="verdict-grid">
+    <article class="verdict il" data-country="il">
+      <div class="flag">Израиль · Тель-Авив</div>
+      <h3>Две страны в одной валюте.</h3>
+      <p>Тех-специалист в Тель-Авиве зарабатывает в 3,5 раза больше медианной номинальной зарплаты по стране (и более чем в 4 раза — медианной <em>чистой</em>); учитель получает меньше, чем стоит медианная аренда. Только жильё — однокомнатная квартира в центре Тель-Авива за €1 900 — съедает <strong style="color:var(--ink)">≈103%</strong> медианной зарплаты на руки.</p>
+      <div class="score">
+        <div class="big">148%</div>
+        <div class="lbl">аренда + базовое<br/>÷ медианная чистая</div>
+      </div>
+    </article>
+
+    <article class="verdict se" data-country="se">
+      <div class="flag">Швеция · Стокгольм</div>
+      <h3>Высокие налоги скрывают низкий реальный счёт.</h3>
+      <p>Заявленный налоговый клин — 41%, НДС — 25%, но плата за детский сад ограничена €155 (maxtaxa с января 2025), университет бесплатный, а потолок расходов на медицину — €122 в <em>год</em>. «Бесплатные» вещи затмевают видимые расходы.</p>
+      <div class="score">
+        <div class="big">70%</div>
+        <div class="lbl">аренда + базовое<br/>÷ медианная чистая</div>
+      </div>
+    </article>
+
+    <article class="verdict fr" data-country="fr">
+      <div class="flag">Франция · Париж</div>
+      <h3>Середина на всех графиках.</h3>
+      <p>Самые высокие зарплаты по ППС из пяти стран, один из самых тяжёлых налоговых клиньев в ОЭСР (тяжелее только у Бельгии) и структурно дешёвый госсектор — €178 в год за высшее образование, €88,80 за месячный проездной Navigo.</p>
+      <div class="score">
+        <div class="big">101%</div>
+        <div class="lbl">аренда + базовое<br/>÷ медианная чистая</div>
+      </div>
+    </article>
+
+    <article class="verdict ru" data-country="ru">
+      <div class="flag">Россия · Москва</div>
+      <h3>Дёшево в евро, жестоко в рублях.</h3>
+      <p>«Биг Хит» стоит €1,85, месячный билет «Тройка» — €20, продукты — €140; самые низкие цены из пяти стран. Но медианная чистая зарплата — €491, поэтому только однушка в центре Москвы съедает <strong style="color:var(--ink)">≈149%</strong> зарплаты на руки. Около 80% москвичей владеют жильём в собственности, что смягчает картину на практике.</p>
+      <div class="score">
+        <div class="big">194%</div>
+        <div class="lbl">аренда + базовое<br/>÷ медианная чистая</div>
+      </div>
+    </article>
+
+    <article class="verdict sk" data-country="sk">
+      <div class="flag">Словакия · Братислава</div>
+      <h3>Эгалитарная середина.</h3>
+      <p>Самый низкий коэффициент Джини в ЕС (0,217). Седьмой по тяжести налоговый клин в ОЭСР (42,6%). Член еврозоны — никакого валютного риска. Однушка в Братиславе за €900 на фоне медианной чистой €1 140 — умеренно; дешёвый детский сад и университет, средний уровень по всему остальному.</p>
+      <div class="score">
+        <div class="big">119%</div>
+        <div class="lbl">аренда + базовое<br/>÷ медианная чистая</div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- METHODOLOGY -->
+<section class="chapter" id="methodology">
+  <div class="ch-head">
+    <div class="ch-num">§ 00 · Методология</div>
+    <div>
+      <h2>Как это читать.</h2>
+      <p class="deck">Каждое число здесь — модель, а не факт. Зарплаты различаются по регионам. Аренда — по типу договора. Эффективная ставка налога зависит от иждивенцев. Ниже — центральная тенденция для центрального случая: одинокий взрослый или семья из четырёх человек в столице — по данным национальных статистических служб и сопоставимых индикаторов ОЭСР.</p>
+    </div>
+  </div>
+
+  <div class="caveat">
+    <div class="l">Обменные курсы и период данных</div>
+    <p>Все суммы в неевровых валютах пересчитаны по справочным курсам конца 2024 / начала 2025: <code>1 ILS = 0,25 EUR</code> (≈ 4,00 ILS / €), <code>1 SEK = 0,087 EUR</code> (≈ 11,5 SEK / €), <code>1 RUB = 0,010 EUR</code> (≈ 100 RUB / €). Словакия и Франция используют евро напрямую. Период измерения — самый свежий доступный: 2024 год для структуры зарплат INSEE, SCB, Росстата и ŠÚ SR; октябрь 2024 для ЦБС Израиля; декабрь 2024 для коэффициента Джини Евростата; январь 2025 для повышения НДС в Израиле до 18%, новой прогрессивной шкалы НДФЛ в России и повышения НДС в Словакии до 23%. Налоговый клин ОЭСР за 2024, Big Mac Index за январь 2025, ежеквартальные индексы Numbeo 2025.</p>
+    <p><strong>Особые оговорки по России.</strong> Россия была приостановлена в ОЭСР в марте 2022 года, поэтому сопоставимые метрики ОЭСР (налоговый клин, зарплаты по ППС) <em>недоступны</em> для России в раунде 2024 года; использованы данные Росстата, Банка России, публикаций The Moscow Times и Numbeo. Рубль был крайне волатильным (RUB/EUR колебался от 0,0085 до 0,0115 в 2024–25); используется усреднённое значение <code>1 RUB = €0,010</code>. Цифры Росстата вызывают методологические споры (см. критику ВШЭ 2025 в источниках). Цены на «Биг Мак» взяты для «Биг Хита» — аналога во «Вкусно — и точка», поскольку McDonald's ушёл из России в 2022 году.</p>
+    <p><strong>Честное раскрытие.</strong> Координатор подгружал свежие цифры через веб-поиск для ключевых значений (INSEE, SMIC, Navigo, зарплаты ОЭСР, НДС Израиля, Numbeo, ЦБС, SCB, аренда в Стокгольме / Тель-Авиве / Москве, зарплаты Росстата, российские НДС и налоговые ставки). Некоторые второстепенные данные (счета за коммуналку, зарплаты среднего звена) — это аккуратные триангуляции из нескольких вторичных источников. Полный список источников приведён в конце документа.</p>
+  </div>
+</section>
+
+<!-- 1: INCOME -->
+<section class="chapter" id="income">
+  <div class="ch-head">
+    <div class="ch-num">§ 01 · Доходы</div>
+    <div>
+      <h2>Сколько вы <em>зарабатываете</em>.</h2>
+      <p class="deck">Медиана, среднее и длинный хвост. Франция и Швеция кучкуются вокруг похожей медианной чистой зарплаты; Израиль ниже по медиане, но впечатляюще выше на вершине технического хвоста; Россия заметно ниже всех остальных по любому показателю — даже московский айтишник, элита российских зарплат, не дотягивает до начинающего шведского учителя.</p>
+    </div>
+  </div>
+
+  <div class="chart-card">
+    <div class="label">График 1 · Месячная зарплата, EUR</div>
+    <h4>Медианная номинальная, медианная чистая и израильский тех-выброс.</h4>
+    <p class="sub">Медианная (P50) и средняя (mean) полная ежемесячная зарплата в эквиваленте евро по справочным курсам конца 2024. Колонка «тех Тель-Авив» показывает медианную номинальную зарплату инженера-разработчика в израильском хайтеке — структурно отдельном рынке труда, тянущем национальную среднюю далеко выше медианы.</p>
+    <div class="chart-wrap"><canvas id="chartSalaries"></canvas></div>
+  </div>
+
+  <div class="chart-card">
+    <div class="label">График 2 · По профессиям · ежемесячно gross в EUR</div>
+    <h4>Учитель, медсестра, кассир, водитель автобуса — и инженер.</h4>
+    <p class="sub">Пять характерных профессий, номинальная месячная зарплата в евро. Колонка израильского айтишника заметно выше любой другой на графике — включая шведского инженера на той же позиции.</p>
+    <div class="chart-wrap tall"><canvas id="chartProfessions"></canvas></div>
+  </div>
+</section>
+
+<!-- PULL QUOTE -->
+<div class="pull">
+  <div class="pull-inner wrap">
+    <blockquote>
+      Медианный израильтянин зарабатывает меньше медианного француза или шведа — но <em class="h"><span class="il">израильский инженер-разработчик</span></em> в Тель-Авиве получает примерно <em class="h">на €2 600 больше в месяц, чем её коллега из Стокгольма, на €3 100 больше парижской и почти <span class="ru">в шесть раз</span> больше того, что приносит на руки московский инженер</em>.
+    </blockquote>
+    <cite>Источники · ЦБС Израиля · SCB Швеция · INSEE Франция · Glassdoor · Levels.fyi</cite>
+  </div>
+</div>
+
+<!-- 2: DISTRIBUTION -->
+<section class="chapter" id="distribution">
+  <div class="ch-head">
+    <div class="ch-num">§ 02 · Распределение</div>
+    <div>
+      <h2>Насколько широк разброс.</h2>
+      <p class="deck">Перцентили P10–P50–P90 для полной ежемесячной номинальной зарплаты, рядом — коэффициент Джини эквивалентного располагаемого дохода. Чем шире полоса, тем глубже неравенство.</p>
+    </div>
+  </div>
+
+  <div class="chart-card">
+    <div class="label">График 3 · Месячная gross в EUR · P10 → P90</div>
+    <h4>От нижнего дециля до верхнего.</h4>
+    <p class="sub">Каждая строка показывает разрыв между работником 10-го и 90-го перцентиля (полная занятость, gross). Чем шире полоса, тем более разбросано распределение дохода. Коэффициент Джини — это располагаемый доход после налогов и трансфертов.</p>
+
+    <div style="padding: 16px 0 36px 0;">
+
+      <div class="range-row il" data-country="il">
+        <div class="name">Израиль</div>
+        <div class="range-bar">
+          <div class="track"></div>
+          <div class="seg" style="left:11%; right:5%;"></div>
+          <div class="dot" style="left:11%;"></div><div class="lbl" style="left:11%;">€800</div>
+          <div class="dot" style="left:31.5%;"></div><div class="lbl" style="left:31.5%;">P50 · €2,250</div>
+          <div class="dot" style="left:95%;"></div><div class="lbl" style="left:95%;">€6,875</div>
+        </div>
+        <div class="gini"><span class="lab">Джини</span>0.344</div>
+      </div>
+
+      <div class="range-row se" data-country="se">
+        <div class="name">Швеция</div>
+        <div class="range-bar">
+          <div class="track"></div>
+          <div class="seg" style="left:32%; right:27%;"></div>
+          <div class="dot" style="left:32%;"></div><div class="lbl" style="left:32%;">€2,297</div>
+          <div class="dot" style="left:45%;"></div><div class="lbl" style="left:45%;">P50 · €3,228</div>
+          <div class="dot" style="left:73%;"></div><div class="lbl" style="left:73%;">€5,246</div>
+        </div>
+        <div class="gini"><span class="lab">Джини</span>0.286</div>
+      </div>
+
+      <div class="range-row fr" data-country="fr">
+        <div class="name">Франция</div>
+        <div class="range-bar">
+          <div class="track"></div>
+          <div class="seg" style="left:26%; right:33%;"></div>
+          <div class="dot" style="left:26%;"></div><div class="lbl" style="left:26%;">€1,830</div>
+          <div class="dot" style="left:38%;"></div><div class="lbl" style="left:38%;">P50 · €2,735</div>
+          <div class="dot" style="left:67%;"></div><div class="lbl" style="left:67%;">€4,800</div>
+        </div>
+        <div class="gini"><span class="lab">Джини</span>0.300</div>
+      </div>
+
+      <div class="range-row ru" data-country="ru">
+        <div class="name">Россия</div>
+        <div class="range-bar">
+          <div class="track"></div>
+          <div class="seg" style="left:3%; right:73%;"></div>
+          <div class="dot" style="left:3%;"></div><div class="lbl" style="left:3%;">€230</div>
+          <div class="dot" style="left:8%;"></div><div class="lbl" style="left:8%;">P50 · €565</div>
+          <div class="dot" style="left:27%;"></div><div class="lbl" style="left:27%;">€1,800</div>
+        </div>
+        <div class="gini"><span class="lab">Джини</span>0.410</div>
+      </div>
+
+      <div class="range-row sk" data-country="sk">
+        <div class="name">Словакия</div>
+        <div class="range-bar">
+          <div class="track"></div>
+          <div class="seg" style="left:13.5%; right:59.7%;"></div>
+          <div class="dot" style="left:13.5%;"></div><div class="lbl" style="left:13.5%;">€970</div>
+          <div class="dot" style="left:20.8%;"></div><div class="lbl" style="left:20.8%;">P50 · €1,500</div>
+          <div class="dot" style="left:40.3%;"></div><div class="lbl" style="left:40.3%;">€2,900</div>
+        </div>
+        <div class="gini"><span class="lab">Джини</span>0.217</div>
+      </div>
+
+    </div>
+
+    <p class="sub" style="margin-top: 36px; margin-bottom: 0; font-style: italic;">Израильские зарплаты имеют самый крутой разброс — верхний дециль получает в <strong style="color:var(--ink)">8,6×</strong> больше нижнего. Россия рядом — <strong style="color:var(--ink)">7,8×</strong>, с наивысшим Джини в наборе (0,41, близко к досанкционному пику России). Швеция — <strong style="color:var(--ink)">2,3×</strong>; Франция — <strong style="color:var(--ink)">2,6×</strong>; Словакия — <strong style="color:var(--ink)">3,0×</strong> по разбросу зарплат, но при этом <strong style="color:var(--ink)">самый низкий Джини во всём ЕС (0,217)</strong> по располагаемому доходу после налогов и трансфертов — эффект структурного перераспределения, а не сжатия зарплат.</p>
+  </div>
+</section>
+
+<!-- 3: TAX -->
+<section class="chapter" id="tax">
+  <div class="ch-head">
+    <div class="ch-num">§ 03 · Налоги</div>
+    <div>
+      <h2>Сколько <em>забирает</em> государство.</h2>
+      <p class="deck">Налоговый клин ОЭСР 2024 — суммарный подоходный налог плюс взносы работника и работодателя в социалку как доля совокупных трудовых издержек для одинокого работника со средней зарплатой. Плюс НДС, который платят все и каждый день.</p>
+    </div>
+  </div>
+
+  <div class="chart-card">
+    <div class="label">График 4 · Налоговый клин и НДС</div>
+    <h4>Франция — один из самых тяжёлых клиньев в ОЭСР; Израиль — один из самых лёгких.</h4>
+    <p class="sub">Налоговый клин = (подоходный налог + соцвзносы работника + соцвзносы работодателя) ÷ совокупные трудовые издержки. Среднее по ОЭСР за 2024 — 34,9%. НДС — стандартная потребительская ставка. <em style="color:var(--ink-dim);">Четыре столбца показывают разные ставочные концепции на одной оси для визуального сравнения — их нельзя суммировать.</em> <strong style="color:var(--ru);">*</strong> <em style="color:var(--ink-dim);">Россия была приостановлена в ОЭСР в 2022 — её налоговый клин рассчитан как сумма взносов работодателя в социалку (~30%) и НДФЛ работника (13%). Высшая ставка 22% применяется только к годовому доходу выше ₽50 млн; плоская 13% всё ещё применяется к ~95% работников.</em></p>
+    <div class="chart-wrap"><canvas id="chartTax"></canvas></div>
+  </div>
+</section>
+
+<!-- 4: COSTS -->
+<section class="chapter" id="basket">
+  <div class="ch-head">
+    <div class="ch-num">§ 04 · Корзина</div>
+    <div>
+      <h2>Месячная <em>корзина</em>.</h2>
+      <p class="deck">Семь категорий, которые платит каждый взрослый. Каждая строка показывает абсолютную цену в евро и ту же цену как долю медианного месячного чистого дохода. «Дорого» в Израиле в основном из-за продуктов; «дорого» Швеции, если убрать жильё и еду, испаряется.</p>
+    </div>
+  </div>
+
+  <div class="chart-card">
+    <div class="label">График 5 · Месячное базовое · одинокий взрослый, столица · EUR</div>
+    <h4>Куда уходят деньги.</h4>
+    <p class="sub">Среднемесячная стоимость в евро для базовой корзины одинокого взрослого. Продукты, электричество, вода, интернет + мобильная связь, месячный проездной, ресторан раз в неделю, базовое дополнительное медицинское страхование.</p>
+    <div class="chart-wrap tall"><canvas id="chartBasket"></canvas></div>
+  </div>
+
+  <div class="chart-card">
+    <div class="label">График 6 · Каждая категория как % от медианной чистой зарплаты по стране</div>
+    <h4>Та же корзина, но взвешенная по тому, что вы зарабатываете.</h4>
+    <p class="sub">Счёт за продукты в Израиле уже <strong style="color:var(--ink)">на 67% выше французского в абсолютных евро</strong> (€500 против €300). На фоне медианной чистой зарплаты он становится разорительным: <strong style="color:var(--ink)">27%</strong> от зарплаты на руки в Израиле против <strong style="color:var(--ink)">14%</strong> во Франции и <strong style="color:var(--ink)">10%</strong> в Швеции. Россия полностью переворачивает картину: продукты в абсолюте всего €140 (треть от израильского счёта), но на медианных €491 это всё равно съедает <strong style="color:var(--ru)">29%</strong> — больше, чем в Израиле. Дёшево в долларах, дорого в своей валюте.</p>
+    <div class="chart-wrap tall"><canvas id="chartBasketPct"></canvas></div>
+  </div>
+</section>
+
+<!-- 5: HOUSING -->
+<section class="chapter" id="housing">
+  <div class="ch-head">
+    <div class="ch-num">§ 05 · Жильё</div>
+    <div>
+      <h2>Самая <em>беспощадная</em> строка бюджета.</h2>
+      <p class="deck">Аренда в Тель-Авиве в абсолютных евро не радикально выше, чем в Стокгольме или Париже. Но взвешенная против локальной медианной чистой зарплаты, она становится самым экстремальным жилищным бременем в этом сравнении — на грани невозможного для одиночки.</p>
+    </div>
+  </div>
+
+  <div class="stat-row">
+    <div class="stat il" data-country="il">
+      <div class="ctry">Тель-Авив</div>
+      <div class="num">€1 900<span style="font-size:20px;color:var(--ink-dim)">/мес</span></div>
+      <div class="cap">1-комн. центр · против €1 850 медианной чистой → <strong style="color:var(--il)">103%</strong> зарплаты на руки</div>
+    </div>
+    <div class="stat se" data-country="se">
+      <div class="ctry">Стокгольм</div>
+      <div class="num">€1 150<span style="font-size:20px;color:var(--ink-dim)">/мес</span></div>
+      <div class="cap">1-комн. центр, второй договор · против €2 480 медианной → <strong style="color:var(--se)">46%</strong> на руки</div>
+    </div>
+    <div class="stat fr" data-country="fr">
+      <div class="ctry">Париж</div>
+      <div class="num">€1 500<span style="font-size:20px;color:var(--ink-dim)">/мес</span></div>
+      <div class="cap">1-комн. центр · против €2 190 медианной → <strong style="color:var(--fr)">68%</strong> на руки</div>
+    </div>
+    <div class="stat ru" data-country="ru">
+      <div class="ctry">Москва</div>
+      <div class="num">€730<span style="font-size:20px;color:var(--ink-dim)">/мес</span></div>
+      <div class="cap">1-комн. центр · против €491 медианной → <strong style="color:var(--ru)">149%</strong> на руки</div>
+    </div>
+    <div class="stat sk" data-country="sk">
+      <div class="ctry">Братислава</div>
+      <div class="num">€900<span style="font-size:20px;color:var(--ink-dim)">/мес</span></div>
+      <div class="cap">1-комн. центр · против €1 140 медианной → <strong style="color:var(--sk)">79%</strong> на руки</div>
+    </div>
+  </div>
+
+  <div class="chart-card">
+    <div class="label">График 7 · Нагрузка от аренды</div>
+    <h4>Однушка, центр города · доля медианной чистой зарплаты по стране.</h4>
+    <p class="sub">Одинокий получатель на медианной чистой зарплате по стране отдал бы такую долю своих ежемесячных «на руки» за одну однокомнатную в столице. Пунктирная отметка на 50% — эмпирический порог «обременительной стоимости жилья». Тель-Авив превышает её вдвое.</p>
+
+    <div class="burden">
+      <div class="burden-row ru over" data-country="ru">
+        <div class="who">Москва<small>1-комн. центр · €730 · против €491 чистой</small></div>
+        <div class="burden-bar over"><div class="ref"></div><div class="fill" style="width:100%"></div></div>
+        <div class="pct">149%</div>
+      </div>
+      <div class="burden-row il over" data-country="il">
+        <div class="who">Тель-Авив<small>1-комн. центр · €1 900</small></div>
+        <div class="burden-bar over"><div class="ref"></div><div class="fill" style="width:100%"></div></div>
+        <div class="pct">103%</div>
+      </div>
+      <div class="burden-row sk" data-country="sk">
+        <div class="who">Братислава<small>1-комн. центр · €900</small></div>
+        <div class="burden-bar"><div class="ref"></div><div class="fill" style="width:79%"></div></div>
+        <div class="pct">79%</div>
+      </div>
+      <div class="burden-row fr" data-country="fr">
+        <div class="who">Париж<small>1-комн. центр · €1 500</small></div>
+        <div class="burden-bar"><div class="ref"></div><div class="fill" style="width:68%"></div></div>
+        <div class="pct">68%</div>
+      </div>
+      <div class="burden-row se" data-country="se">
+        <div class="who">Стокгольм<small>1-комн. второй договор · €1 150</small></div>
+        <div class="burden-bar"><div class="ref"></div><div class="fill" style="width:46%"></div></div>
+        <div class="pct">46%</div>
+      </div>
+      <div class="burden-row se" data-country="se">
+        <div class="who">Стокгольм <em style="color:var(--ink-dim);font-style:normal;">первый договор</em><small>1-комн. регулируемая · €740 · очередь 9–20 лет</small></div>
+        <div class="burden-bar"><div class="ref"></div><div class="fill" style="width:30%"></div></div>
+        <div class="pct">30%</div>
+      </div>
+    </div>
+    <p class="sub" style="margin-top: 24px; margin-bottom: 0; font-style: italic;">Важная российская сноска: около 80% российских домохозяйств владеют жильём в собственности (наследие постсоветской приватизации), поэтому показанная выше нагрузка от аренды касается в основном приезжих, мигрантов и людей младше 35 лет. Для медианного россиянина, унаследовавшего квартиру, эта строка из бюджета домохозяйства исчезает полностью.</p>
+  </div>
+
+  <div class="chart-card">
+    <div class="label">График 8 · Цена квартиры ÷ годовая gross зарплата</div>
+    <h4>Покупка, а не аренда.</h4>
+    <p class="sub">Сколько лет <em>номинальной</em> медианной зарплаты по стране нужно, чтобы купить 4-комнатную квартиру в столице? Это соотношение «цена-доход», по которому Numbeo и Банк международных расчётов помечают «пузырь» на рынке жилья. Тель-Авив в глобальном худшем квинтиле; московские 47 лет технически — худшие, но смягчены массовой постсоветской приватизацией: большинство нынешних российских жителей не покупали жильё по рыночной цене.</p>
+    <div class="chart-wrap short"><canvas id="chartPriceIncome"></canvas></div>
+  </div>
+</section>
+
+<div class="pull">
+  <div class="pull-inner wrap">
+    <blockquote>
+<em class="h"><span class="il">Медианному израильтянину</span></em> потребуется <em class="h">17 лет</em> полной номинальной зарплаты, чтобы купить среднюю 4-комнатную квартиру в Тель-Авиве. <em class="h"><span class="se">В Стокгольме — 11 лет</span></em>. <em class="h"><span class="fr">В Париже — 14</span></em>. <em class="h"><span class="ru">В Москве — 47</span></em> — хотя большинству россиян так и не пришлось это заплатить.
+    </blockquote>
+    <cite>Источники · Индекс цен на жильё ЦБС · Numbeo · Svensk Mäklarstatistik · MeilleursAgents</cite>
+  </div>
+</div>
+
+<!-- 6: CHILDCARE -->
+<section class="chapter" id="childcare">
+  <div class="ch-head">
+    <div class="ch-num">§ 06 · Детский сад</div>
+    <div>
+      <h2>Цена <em>двухдоходного</em> домохозяйства.</h2>
+      <p class="deck">Ясли/сад на одного ребёнка — пороговая статья расходов, решающая, выйдет ли второй родитель на работу. Шведская maxtaxa — самая агрессивная семейная субсидия в развитом мире; израильский частный «маон» — самый дорогой.</p>
+    </div>
+  </div>
+
+  <div class="chart-card">
+    <div class="label">График 9 · Ежемесячная плата · одно место полного дня на малыша · EUR</div>
+    <h4>Детский сад после субсидий.</h4>
+    <p class="sub">Шведская förskola ограничена <strong style="color:var(--se)">€155 в месяц</strong> независимо от дохода семьи (знаменитая <em>maxtaxa</em>; SEK 1 783 потолок с января 2025, поднят с SEK 1 688 / €147 в 2024). Французский муниципальный crèche обычно стоит €300–€500 после субсидий CAF; частный crèche или assistante maternelle выходит примерно в €700 после CMG, которая покрывает до 85% расходов. В Израиле частный «маон» стоит €950 без субсидий, при этом субсидируемое государственное место — €300–€475 по доходному цензу. Российский государственный детский сад — самый дешёвый в сравнении: по закону муниципалитеты могут брать с родителей только до 20% реальной стоимости, поэтому месячная плата в Москве составляет около <strong style="color:var(--ru)">€24</strong>; частные сады начинаются от ~€250.</p>
+    <div class="chart-wrap"><canvas id="chartChildcare"></canvas></div>
+  </div>
+</section>
+
+<!-- 7: FREE STUFF -->
+<section class="chapter" id="free">
+  <div class="ch-head">
+    <div class="ch-num">§ 07 · «Бесплатные» статьи</div>
+    <div>
+      <h2>То, что <em>не видно</em> в счёте.</h2>
+      <p class="deck">Категория, сильнее всего искажающая сравнение уровней цен между странами. Заявленная стоимость жизни в Швеции выглядит высокой — пока вы не учтёте бесплатный университет, бесплатное K-12, потолок €122/год на медицину и ограничение платы за сад. Израильская выглядит разумной — пока вы не добавите €950 за сад и €110/мес дополнительной медстраховки.</p>
+    </div>
+  </div>
+
+  <div class="free-grid">
+    <div class="head">Государственная услуга</div>
+    <div class="head il" data-country="il">Израиль</div>
+    <div class="head se" data-country="se">Швеция</div>
+    <div class="head fr" data-country="fr">Франция</div>
+    <div class="head ru" data-country="ru">Россия</div>
+    <div class="head sk" data-country="sk">Словакия</div>
+
+    <div class="row-label">Государственная школа K-12</div>
+    <div class="partial" data-country="il">Обучение бесплатно, ~€625/год доп. расходы</div>
+    <div class="free" data-country="se">Обучение + обед бесплатно</div>
+    <div class="partial" data-country="fr">Обучение бесплатно, ~€600/год столовая + материалы</div>
+    <div class="partial" data-country="ru">Обучение бесплатно; питание, книги — варьируется</div>
+    <div class="partial" data-country="sk">Обучение бесплатно; столовая ~€30/мес, книги дополнительно</div>
+
+    <div class="row-label">Государственный вуз (за год)</div>
+    <div class="cost" data-country="il">€2 950</div>
+    <div class="free" data-country="se">€0 (граждане ЕС/EES)</div>
+    <div class="cost" data-country="fr">€178 (licence/бакалавр)</div>
+    <div class="partial" data-country="ru">Бесплатно по госквоте; €3 000–€5 000 на контракте</div>
+    <div class="free" data-country="sk">€0 для граждан SK/ЕС (программы на словацком)</div>
+
+    <div class="row-label">Медицина — приём у врача</div>
+    <div class="cost" data-country="il">~€8 доплата + €28/мес доп. страховка</div>
+    <div class="free" data-country="se">€0 после потолка €122/год</div>
+    <div class="partial" data-country="fr">€26,50 за приём, 70% возвращает Sécu, остальное — mutuelle (€70–€120/мес)</div>
+    <div class="free" data-country="ru">€0 по ОМС (качество — переменное)</div>
+    <div class="free" data-country="sk">€0 по госстраховке; небольшие доплаты за рецепты</div>
+
+    <div class="row-label">Плата за детский сад (1 ребёнок)</div>
+    <div class="cost" data-country="il">~€950/мес частный, €475 субсидируемый</div>
+    <div class="free" data-country="se">€155/мес МАКСИМУМ (maxtaxa 2025)</div>
+    <div class="cost" data-country="fr">~€300–€500/мес после CMG</div>
+    <div class="free" data-country="ru">€24/мес государственный; €250+ частный</div>
+    <div class="free" data-country="sk">~€30–€100/мес государственный (ставит муниципалитет); €400+ частный</div>
+
+    <div class="row-label">Оплачиваемый отпуск (мин.)</div>
+    <div class="cost" data-country="il">12 дней минимум; ~18–24 с выслугой/коллективным договором</div>
+    <div class="free" data-country="se">25 дней + коллективные договоры</div>
+    <div class="free" data-country="fr">25 дней + RTT</div>
+    <div class="free" data-country="ru">28 дней (по закону)</div>
+    <div class="partial" data-country="sk">20 дней до 33 лет, 25 дней с 33+</div>
+
+    <div class="row-label">Верхняя ставка НДФЛ</div>
+    <div class="cost" data-country="il">50%</div>
+    <div class="cost" data-country="se">52,3% (выше €53 500/год)</div>
+    <div class="cost" data-country="fr">45% (+4% надбавка)</div>
+    <div class="cost" data-country="ru">22% <small style="color:var(--ink-dim)">(янв. 2025, выше ₽50 млн/год); 13% плоская ниже</small></div>
+    <div class="cost" data-country="sk">25% <small style="color:var(--ink-dim)">(выше €48 441 в 2025; ступени 30% и 35% с 2026)</small></div>
+
+    <div class="row-label">НДС (стандартный)</div>
+    <div class="cost" data-country="il">18% <small style="color:var(--ink-dim)">(↑ янв. 2025 с 17%)</small></div>
+    <div class="cost" data-country="se">25%</div>
+    <div class="cost" data-country="fr">20%</div>
+    <div class="cost" data-country="ru">20% <small style="color:var(--ink-dim)">(↑ до 22% с янв. 2026)</small></div>
+    <div class="cost" data-country="sk">23% <small style="color:var(--ink-dim)">(↑ янв. 2025 с 20%)</small></div>
+  </div>
+</section>
+
+<!-- 8: BIG MAC / PPP -->
+<section class="chapter" id="ppp">
+  <div class="ch-head">
+    <div class="ch-num">§ 08 · ППС</div>
+    <div>
+      <h2>Проверка по <em>Биг Маку</em>.</h2>
+      <p class="deck">Биг Мак — это глобально стандартизированная корзина ингредиентов: говядина, хлеб, салат, упаковка, недвижимость, труд, электричество, налог. Цена показывает, как валюта соотносится с долларом по покупательной способности — без всяких моделей.</p>
+    </div>
+  </div>
+
+  <div class="chart-card">
+    <div class="label">График 10 · Цена Биг Мака · янв. 2025 · местная цена ↔ EUR</div>
+    <h4>Гамбургер не врёт.</h4>
+    <p class="sub">Цена Биг Мака (пересчитана из USD/€, BMI The Economist на янв. 2025) и страновой индекс стоимости жизни Numbeo (NYC = 100, без аренды). Биг Мак показывает сырой уровень цен; Numbeo охватывает всю корзину. <strong style="color:var(--ink)">Оба индикатора ставят Тель-Авив на вершину</strong> — Биг Мак в Израиле примерно €6,10 (самый дорогой из пяти стран), а индекс Numbeo — 76, против Братиславы 56, Стокгольма 62 и Парижа 68. Россия, напротив, демонстрирует самый низкий уровень цен в сырых евро: Numbeo по Москве около 52, а «Биг Хит» (замена Биг Мака во «Вкусно — и точка» после ухода McDonald's в 2022) — меньше €2. Самое интересное — на следующем графике: дешёвые цены ÷ низкие зарплаты всё равно дают худшие коэффициенты доступности в наборе.</p>
+    <div class="chart-wrap"><canvas id="chartBigMac"></canvas></div>
+  </div>
+</section>
+
+<!-- 9: COMPOSITE -->
+<section class="chapter" id="composite">
+  <div class="ch-head">
+    <div class="ch-num">§ 09 · Композит</div>
+    <div>
+      <h2>Шесть осей, одна <em>форма</em>.</h2>
+      <p class="deck">Нормализованные оценки по шести осям, реально определяющим, доступна ли жизнь. Выше = лучше для жителя. Геометрия Швеции — самая широкая и прямоугольная; Израиля — асимметричная, доминируемая зарплатной возможностью наверху, но удушаемая жильём снизу.</p>
+    </div>
+  </div>
+
+  <div class="chart-card">
+    <div class="label">График 11 · Радар сводной доступности</div>
+    <h4>Форма каждой страны.</h4>
+    <p class="sub">Каждая ось нормализована 0–100, где 100 — самое благоприятное для жителя значение среди пяти стран. Доход = зарплата по ППС. Жильё-дружелюбность = обратное к отношению «аренда/доход». Бесплатные услуги = взвешенный индекс цен на образование/медицину/детский сад. Налоговая эффективность = обратное к налоговому клину минус коррекция на ценность услуг.</p>
+    <div class="chart-wrap tall"><canvas id="chartRadar"></canvas></div>
+  </div>
+
+  <div class="chart-card">
+    <div class="label">График 12 · Семья из 4-х · месячный профицит при двух медианных доходах · EUR</div>
+    <h4>Что остаётся после корзины.</h4>
+    <p class="sub">Моделируемое ежемесячное домохозяйство: два медианных чистых дохода, один ребёнок в саду, один школьник, 3-комнатная квартира в столичной агломерации, полная базовая корзина. Все исходные данные ниже указаны явно, чтобы расчёт можно было проверить.</p>
+
+    <table class="data" style="margin-bottom: 28px;">
+      <thead>
+        <tr><th></th><th data-country="il">Израиль (пригород ТА)</th><th data-country="se">Швеция (Стокгольм)</th><th data-country="fr">Франция (banlieue)</th><th data-country="ru">Россия (Подмосковье)</th><th data-country="sk">Словакия (Братислава)</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Двойной медианный чистый доход</td><td class="il" data-country="il">€3 700</td><td class="se" data-country="se">€4 960</td><td class="fr" data-country="fr">€4 380</td><td class="ru" data-country="ru">€982</td><td class="sk" data-country="sk">€2 280</td></tr>
+        <tr><td>Аренда 3-комн. (метро/пригород)</td><td class="il" data-country="il">−€1 875</td><td class="se" data-country="se">−€1 500</td><td class="fr" data-country="fr">−€1 400</td><td class="ru" data-country="ru">−€1 200</td><td class="sk" data-country="sk">−€1 400</td></tr>
+        <tr><td>Семейные продукты</td><td class="il" data-country="il">−€1 250</td><td class="se" data-country="se">−€800</td><td class="fr" data-country="fr">−€750</td><td class="ru" data-country="ru">−€350</td><td class="sk" data-country="sk">−€650</td></tr>
+        <tr><td>Коммуналка (электричество + вода + отопление)</td><td class="il" data-country="il">−€200</td><td class="se" data-country="se">−€270</td><td class="fr" data-country="fr">−€150</td><td class="ru" data-country="ru">−€60</td><td class="sk" data-country="sk">−€180</td></tr>
+        <tr><td>Детский сад (1 ребёнок, после субсидии)</td><td class="il" data-country="il">−€400</td><td class="se" data-country="se">−€155</td><td class="fr" data-country="fr">−€400</td><td class="ru" data-country="ru">−€24</td><td class="sk" data-country="sk">−€50</td></tr>
+        <tr><td>Транспорт (2 проездных)</td><td class="il" data-country="il">−€112</td><td class="se" data-country="se">−€178</td><td class="fr" data-country="fr">−€178</td><td class="ru" data-country="ru">−€40</td><td class="sk" data-country="sk">−€72</td></tr>
+        <tr><td>Медицина (доп. страховка / mutuelle / потолок)</td><td class="il" data-country="il">−€56</td><td class="se" data-country="se">−€20</td><td class="fr" data-country="fr">−€170</td><td class="ru" data-country="ru">−€15</td><td class="sk" data-country="sk">−€30</td></tr>
+        <tr class="total"><td>Ежемесячный профицит / дефицит</td><td class="il" data-country="il"><strong>−€193</strong></td><td class="se" data-country="se"><strong>+€2 037</strong></td><td class="fr" data-country="fr"><strong>+€1 332</strong></td><td class="ru" data-country="ru"><strong>−€707</strong></td><td class="sk" data-country="sk"><strong>−€102</strong></td></tr>
+      </tbody>
+    </table>
+
+    <div class="chart-wrap"><canvas id="chartSurplus"></canvas></div>
+
+    <p class="sub" style="margin-top: 28px; margin-bottom: 0; font-style: italic;">Израильская семья из четырёх живёт с небольшим ежемесячным дефицитом по центральному сценарию, а российская — с куда большим (−€707) в модели с арендой. Российская цифра обманчива на первый взгляд: при ~80% собственного жилья строка аренды для унаследованных квартир практически исчезает, переводя баланс в плюс примерно <strong style="color:var(--ru)">+€500/мес</strong> для типичного российского домохозяйства-собственника. Показанный дефицит — это стоимость, <em>навязанная приезжим, арендаторам и мигрантам</em>, для которых Москва на медианной зарплате действительно неподъёмна. Швеция и Франция сохраняют свои крупные профициты в обоих режимах учёта.</p>
+  </div>
+</section>
+
+<!-- THE BOTTOM LINE -->
+<section class="chapter" id="verdict-final">
+  <div class="ch-head">
+    <div class="ch-num">§ 10 · Итог</div>
+    <div>
+      <h2>Так <em>где</em> на самом деле дешевле жить?</h2>
+      <p class="deck">Единого ответа нет — пять стран оптимизированы под разные вещи. Но для медианного домохозяйства, после того как государство закончит брать и возвращать, рейтинг переворачивает заголовки. Россия — самый экстремальный случай в обе стороны: жестоко для приезжего на медианной зарплате, но достаточно комфортно для медианного домохозяйства, унаследовавшего квартиру советских времён.</p>
+    </div>
+  </div>
+
+  <div class="takeaways">
+    <div class="takeaway se" data-country="se">
+      <div class="rank">1.</div>
+      <div class="ctry-name">Швеция</div>
+      <ul>
+        <li><strong>Реальная стоимость</strong> Самый тяжёлый налоговый клин компенсируется потолком платы за детский сад, бесплатными школой и университетом, потолком расходов на медицину €122/год. Эффективный счёт для семьи — самый низкий из пяти стран (в модели с арендой).</li>
+        <li><strong>Профицит медианного домохозяйства</strong> <em style="color:var(--ink)">≈ €2 037/мес</em> после задокументированной семейной корзины.</li>
+        <li><strong>Подвох</strong> Жильё бимодально: первичный договор требует очереди в 9–20 лет; приезжие платят по «вторичному» рынку, и разница с Парижем стирается.</li>
+      </ul>
+    </div>
+
+    <div class="takeaway fr" data-country="fr">
+      <div class="rank">2.</div>
+      <div class="ctry-name">Франция</div>
+      <ul>
+        <li><strong>Реальная стоимость</strong> Один из самых тяжёлых налоговых клиньев в ОЭСР — но госсектор структурно дёшев: €178 за вуз, €88,80 за Navigo, бесплатное K-12, частично возмещаемая медицина.</li>
+        <li><strong>Профицит медианного домохозяйства</strong> <em style="color:var(--ink)">≈ €1 332/мес</em> после задокументированной семейной корзины.</li>
+        <li><strong>Подвох</strong> Mutuelle — это скрытый ежемесячный расход, резко растущий с возрастом; нагрузка от аренды в banlieue умеренная, но в центре Парижа жёсткая.</li>
+      </ul>
+    </div>
+
+    <div class="takeaway sk" data-country="sk">
+      <div class="rank">3.</div>
+      <div class="ctry-name">Словакия</div>
+      <ul>
+        <li><strong>Реальная стоимость</strong> 7-й по тяжести налоговый клин в ОЭСР (42,6%), но всё в евро и по ценам ЕС. Детский сад дёшев, университет бесплатный, медицина бесплатная, Биг Мак €4,95. Региональная премия Братиславы смягчает национальную картину.</li>
+        <li><strong>Профицит медианного домохозяйства</strong> <em style="color:var(--ink)">≈ −€102/мес</em> при двойном национально-медианном доходе; уверенно уходит в плюс на братиславских региональных зарплатах.</li>
+        <li><strong>Подвох</strong> Самый низкий Джини в ЕС (0,217) означает, что перераспределение реально работает — но региональное неравенство одно из самых широких в Европе. Национальная медиана недооценивает братиславскую реальность; сельская Словакия ближе к нижнему концу зарплатного диапазона.</li>
+      </ul>
+    </div>
+
+    <div class="takeaway il" data-country="il">
+      <div class="rank">4.</div>
+      <div class="ctry-name">Израиль</div>
+      <ul>
+        <li><strong>Реальная стоимость</strong> Самый лёгкий налоговый клин из пяти (за вычетом российской плоской эпохи) — но и самая низкая социальная отдача от него. Сад, университет, дополнительная медицина — всё из своего кармана; еда и жильё съедают остальное.</li>
+        <li><strong>Профицит медианного домохозяйства</strong> <em style="color:var(--ink)">≈ −€193/мес</em> — небольшой дефицит в центральном сценарии. Разумная вариация сводит к нулю; более дешёвая аренда дальше от метрополии выводит в плюс.</li>
+        <li><strong>Подвох</strong> Если вы в IT, всё это не про вас. Израильская высокотехнологичная зарплата — самая выгодная позиция в этом сравнении, но её занимают только ~10% работников.</li>
+      </ul>
+    </div>
+
+    <div class="takeaway ru" data-country="ru">
+      <div class="rank">5.</div>
+      <div class="ctry-name">Россия</div>
+      <ul>
+        <li><strong>Реальная стоимость</strong> Самые низкие цены из пяти в абсолютных евро — но зарплаты настолько низкие, что коэффициенты нагрузки самые худшие в наборе. Плоский НДФЛ 13% (22% с января 2025 выше ₽50 млн/год) и НДС 20%.</li>
+        <li><strong>Профицит медианного домохозяйства</strong> <em style="color:var(--ink)">≈ −€707/мес</em> в модели с арендой; <em style="color:var(--ink)">≈ +€500/мес</em> для ~80% домохозяйств, владеющих жильём. «Истинный» российский бюджет почти полностью зависит от того, на какой стороне жилищного наследия вы оказались.</li>
+        <li><strong>Подвох</strong> Данные эпохи санкций оспариваются. Рост зарплат у Росстата (+19% номинально в 2024) отражает реальный военно-экономический дефицит рабочей силы, но и высокую инфляцию (8,5%). Конвертация в валюту волатильна; обесценение рубля может сдвинуть любую цифру здесь на ±15% за квартал.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="caveat" style="margin-top: 36px;">
+    <div class="l">Финальное замечание о весах</div>
+    <p>Рейтинг выше взвешивает <strong>доступность для семьи из 4 с двумя медианными доходами</strong> в столице, на арендуемом жилье. Он изменится, если персонаж — одинокий IT-специалист (Израиль прыгает на №1), пенсионер на пенсии (важна более низкая ставка налога на пенсии во Франции), студент (€0 за обучение в Швеции — решающий фактор) или российский собственник, унаследовавший московскую квартиру (Россия поднимается на несколько мест). Дело не в том, что одна страна дешёвая, а другая дорогая — <em>стоимость жизни</em> это функция того, что государство уже купило за вас, что родители владели до вас, и в какой валюте вы случайно зарабатываете.</p>
+  </div>
+</section>
+
+<!-- SOURCES -->
+<section class="sources" id="sources">
+  <div class="wrap">
+    <h2>Источники.</h2>
+
+    <div class="src-grid">
+
+      <div>
+        <h3>Доходы и зарплаты</h3>
+        <ul>
+          <li><strong>INSEE (FR)</strong> <a href="https://www.insee.fr/fr/statistiques/8657156">Les salaires dans le secteur privé en 2024</a></li>
+          <li><strong>INSEE (FR)</strong> <a href="https://www.insee.fr/fr/statistiques/serie/000879877">SMIC mensuel brut 2024–25</a></li>
+          <li><strong>Service Public (FR)</strong> <a href="https://www.service-public.gouv.fr/particuliers/vosdroits/F2300">SMIC 2025 €1,801.80 brut / €1,426.30 net</a></li>
+          <li><strong>SCB (SE)</strong> <a href="https://www.scb.se/en/finding-statistics/statistics-by-subject-area/labour-market/wages-salaries-and-labour-costs/salary-structures-whole-economy/">Salary structures, whole economy 2024</a></li>
+          <li><strong>CBS (IL)</strong> <a href="https://www.cbs.gov.il">Average Wage per Employee Post, Oct 2024</a></li>
+          <li><strong>The Jerusalem Post</strong> <a href="https://www.jpost.com/israel-news/article-840989">Israel average salary 14,060 NIS Dec 2024</a></li>
+          <li><strong>Glassdoor</strong> <a href="https://www.glassdoor.com/Salaries/paris-france-software-engineer-salary-SRCH_IL.0,12_IM1080_KO13,30.htm">Paris software engineer €58,600/yr</a></li>
+          <li><strong>Levels.fyi</strong> <a href="https://www.levels.fyi/t/software-engineer/locations/tel-aviv-isr">Tel Aviv software engineer salaries</a></li>
+          <li><strong>Easy Aliyah</strong> <a href="https://www.easyaliyah.com/blog/high-tech-salaries-in-israel-a-comprehensive-overview">Israel hi-tech avg $9,000/month, Mar 2024</a></li>
+        </ul>
+
+        <h3 style="margin-top: 32px;">Неравенство и макро</h3>
+        <ul>
+          <li><strong>Eurostat / Trading Economics</strong> <a href="https://tradingeconomics.com/france/gini-coefficient-of-equivalised-disposable-income-eurostat-data.html">France Gini 30.0, Dec 2024</a></li>
+          <li><strong>OECD / SCB</strong> <a href="https://www.scb.se/en/finding-statistics/statistics-by-subject-area/household-finances/income-and-income-distribution/">Sweden Gini 0.286, 2022 (pub 2024)</a></li>
+          <li><strong>OECD / Bituach Leumi (IL)</strong> <a href="https://www.btl.gov.il/Publications">Israel Gini 0.344 (2023 Poverty Report)</a></li>
+          <li><strong>OECD</strong> <a href="https://www.oecd.org/en/data/indicators/average-annual-wages.html">Average Annual Wages 2024 (PPP)</a> · FR $60,608 · SE $59,058 · IL $54,736</li>
+          <li><strong>OECD</strong> <a href="https://www.oecd.org/en/publications/2025/04/taxing-wages-2025_20d1a01d/full-report/effective-tax-rates-on-labour-income-in-2024_878e20ff.html">Taxing Wages 2025 — tax wedge 2024</a></li>
+        </ul>
+
+        <h3 style="margin-top: 32px;">Биг Мак / ППС</h3>
+        <ul>
+          <li><strong>The Economist</strong> <a href="https://www.economist.com/big-mac-index">Big Mac Index, January 2025</a></li>
+          <li><strong>Numbeo</strong> <a href="https://www.numbeo.com/cost-of-living/rankings.jsp?title=2025">Cost of Living Index by City 2025</a></li>
+          <li><strong>Numbeo</strong> <a href="https://www.numbeo.com/cost-of-living/in/Tel-Aviv-Yafo">Tel Aviv prices</a></li>
+          <li><strong>Numbeo</strong> <a href="https://www.numbeo.com/cost-of-living/in/Stockholm">Stockholm prices</a></li>
+          <li><strong>Numbeo</strong> <a href="https://www.numbeo.com/cost-of-living/in/Paris">Paris prices</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h3>Жильё</h3>
+        <ul>
+          <li><strong>SeLoger / ParisRental</strong> <a href="https://en.parisrental.com/blog/essential-rental-info/how-much-does-it-cost-to-rent-a-one-bedroom-apartment-in-paris">Paris 1BR centre €1,400–1,600</a></li>
+          <li><strong>Investropa</strong> <a href="https://investropa.com/blogs/news/stockholm-rents">Stockholm 1BR second-hand SEK 14,500 (~€1,260)</a></li>
+          <li><strong>Hyresgästföreningen / Bostadsförmedlingen</strong> <a href="https://bostad.stockholm.se/">Stockholm first-hand rental queue</a></li>
+          <li><strong>Native Israel</strong> <a href="https://www.nativeisrael.com/blog/cost-of-living-in-tel-aviv">Tel Aviv 1BR ₪7,000–9,000+ (€1,750–2,250)</a></li>
+          <li><strong>Svensk Mäklarstatistik</strong> <a href="https://www.maklarstatistik.se/">Stockholm apt €7,656/m², Q4 2024</a></li>
+        </ul>
+
+        <h3 style="margin-top: 32px;">Детский сад и образование</h3>
+        <ul>
+          <li><strong>Skolverket (SE)</strong> <a href="https://www.skolverket.se/regler-och-ansvar/ansvar-i-skolfragor/maxtaxa-i-forskola-och-fritidshem">Förskola maxtaxa SEK 1,688/mo (€147)</a></li>
+          <li><strong>Service Public (FR)</strong> <a href="https://www.service-public.gouv.fr/particuliers/vosdroits/F345">Complément de libre choix de mode de garde (CMG)</a></li>
+          <li><strong>Babilou / People&amp;Baby</strong> <a href="https://www.babilou.fr/le-tarif-de-la-place-en-creche/les-aides-de-la-caf-en-creche">Crèche municipal €300–500/mo</a></li>
+          <li><strong>Connexion France</strong> <a href="https://www.connexionfrance.com/news/explainer-how-childcare-works-in-france/675655">French childcare options &amp; costs</a></li>
+          <li><strong>Eurydice (EC)</strong> <a href="https://eurydice.eacea.ec.europa.eu/countries/france/national-student-fee">France university fees: €178 licence / €254 master</a></li>
+          <li><strong>Studera.nu (SE)</strong> <a href="https://www.studera.nu/">Sweden university free for EU/EEA</a></li>
+          <li><strong>Ministry of Labour (IL)</strong> <a href="https://www.gov.il">Maon subsidies 2024</a></li>
+        </ul>
+
+        <h3 style="margin-top: 32px;">Коммуналка, транспорт, налоги</h3>
+        <ul>
+          <li><strong>Selectra (FR)</strong> <a href="https://en.selectra.info/energy-france/guides/electricity/tariffs">EDF 70m² apt €60–90/mo</a></li>
+          <li><strong>Selectra (FR)</strong> <a href="https://en.selectra.info/broadband-phone-france">Fiber broadband ~€28.59/mo</a></li>
+          <li><strong>Reassurez-moi</strong> <a href="https://reassurez-moi.fr/guide/mutuelle-sante/tarif">Mutuelle individuelle €70–120/mo</a></li>
+          <li><strong>RATP</strong> <a href="https://www.bonjour-ratp.fr/en/titres-tarifs/forfait-navigo-mois/">Navigo monthly €88.80 (Jan 2025)</a></li>
+          <li><strong>SL (SE)</strong> <a href="https://sl.se/en/in-english/fares--tickets/">SL monthly pass SEK 1,020 (€89)</a></li>
+          <li><strong>Sovos / Marosa</strong> <a href="https://sovos.com/regulatory-updates/vat/israel-vat-rate-increase-to-18-from-january-1-2025/">Israel VAT 18% from Jan 1 2025</a></li>
+          <li><strong>Skatteverket (SE)</strong> <a href="https://www.skatteverket.se/">Sweden municipal + state tax 2024</a></li>
+          <li><strong>Israel Tax Authority</strong> <a href="https://www.gov.il">Income tax brackets 2024–25</a></li>
+        </ul>
+
+        <h3 style="margin-top: 32px;">Словакия · доходы и расходы</h3>
+        <ul>
+          <li><strong>GPA / Profesia</strong> <a href="https://gpa.net/blogs/emea-1/slovakia-10-of-workers-earned-less-than-1-000-a-month-in-2024">Slovakia 2024 median €1,500, P10 €970, P90 €2,900</a></li>
+          <li><strong>Statistical Office of SR (ŠÚ SR)</strong> <a href="https://slovak.statistics.sk/">Average gross monthly wage 2024 · HICP 3.1%</a></li>
+          <li><strong>Platy.sk</strong> <a href="https://www.platy.sk/en/salaries-in-country">Profession-by-profession salary data (nurse, teacher, software engineer)</a></li>
+          <li><strong>Glassdoor / Levels.fyi</strong> <a href="https://www.glassdoor.com/Salaries/bratislava-software-engineer-salary-SRCH_IL.0,10_IM1661_KO11,28.htm">Bratislava software engineer €34,441–€58,608/yr</a></li>
+          <li><strong>OECD Taxing Wages 2025</strong> <a href="https://www.oecd.org/content/dam/oecd/en/publications/reports/2025/04/taxing-wages-2025-country-notes_16d47563/slovak-republic_ac4ab294/779b8d08-en.pdf">Slovak tax wedge 2024 = 42.6% (7th highest OECD)</a></li>
+          <li><strong>Crowe / Accace</strong> <a href="https://accace.com/tax-guideline-for-slovakia/">2025 tax guideline · income tax 19/25%, VAT 23%</a></li>
+          <li><strong>Eurostat / Statista</strong> <a href="https://www.statista.com/statistics/874070/gini-index-score-of-eu-countries/">Slovakia Gini 0.217 — lowest in EU (2024)</a></li>
+          <li><strong>Global Property Guide</strong> <a href="https://www.globalpropertyguide.com/europe/slovakia/rent">Bratislava 1BR rent ~€859/mo</a></li>
+          <li><strong>Numbeo Bratislava</strong> <a href="https://www.numbeo.com/cost-of-living/in/Bratislava">CoLI ~55.8 (NYC=100, excl. rent)</a></li>
+          <li><strong>imhd.sk / DPB</strong> <a href="https://imhd.sk/ba/doc/en/20709/20709">Bratislava monthly transit pass €36 (2024)</a></li>
+          <li><strong>Herrys / Investropa</strong> <a href="https://investropa.com/blogs/news/average-apartment-price-bratislava">Bratislava apartment €3,800–€5,200/m²</a></li>
+          <li><strong>Vatcalc</strong> <a href="https://www.vatcalc.com/slovakia/slovakia-vat-rise-to-22/">Slovak VAT raise to 23% from Jan 2025</a></li>
+          <li><strong>Eurydice</strong> <a href="https://eurydice.eacea.ec.europa.eu/national-education-systems/slovakia/access">Slovak materská škola fees set by municipality; free K-12</a></li>
+        </ul>
+
+        <h3 style="margin-top: 32px;">Россия · доходы и расходы</h3>
+        <ul>
+          <li><strong>Rosstat</strong> <a href="https://rosstat.gov.ru/">Median monthly wage 2024 ₽56,443 · mean ₽87,952</a></li>
+          <li><strong>The Moscow Times</strong> <a href="https://www.themoscowtimes.com/2025/03/03/russian-wage-growth-hits-16-year-high-in-december-2024-a88227">Russian wage growth Dec 2024 (₽128,665 incl. bonuses)</a></li>
+          <li><strong>Awara Group</strong> <a href="https://www.awaragroup.com/blog/progressive-personal-income-tax-scale-2025/">2025 progressive NDFL: 13/15/18/20/22% brackets</a></li>
+          <li><strong>Kremlin / President of Russia</strong> <a href="http://en.kremlin.ru/acts/news/74542">Progressive personal income tax law (signed 2024, effective Jan 2025)</a></li>
+          <li><strong>The Moscow Times</strong> <a href="https://www.themoscowtimes.com/2025/01/13/rental-prices-in-russia-rose-31-in-2024-experts-say-a87587">Moscow 1BR ₽73,000/mo (€730), +31% in 2024</a></li>
+          <li><strong>Levels.fyi / WorldSalaries</strong> <a href="https://worldsalaries.com/average-software-engineer-salary-in-moscow/russia/">Moscow software engineer ₽108k–₽170k/mo</a></li>
+          <li><strong>The Moscow Times</strong> <a href="https://www.themoscowtimes.com/2026/03/13/income-inequality-in-russia-approaching-record-highs-research-group-says-a92221">Rosstat Gini 0.41 (2024)</a></li>
+          <li><strong>Mos.ru / Troika</strong> <a href="https://transport.mos.ru/en/troika">Moscow Troika monthly pass ₽2,000 (€20)</a></li>
+          <li><strong>Vatupdate / Sovos</strong> <a href="https://sovos.com/regulatory-updates/vat/russia-vat-rate-raised-to-22/">Russia VAT 20% (2024); raised to 22% Jan 2026</a></li>
+          <li><strong>Numbeo Moscow</strong> <a href="https://www.numbeo.com/cost-of-living/in/Moscow">Moscow CoLI ~52 (NYC=100, excl. rent)</a></li>
+          <li><strong>EatMyIndex / Eat Healthy 365</strong> <a href="https://eathealthy365.com/russia-s-big-mac-successor-price-taste-real-value/">Vkusno i tochka "Big Hit" replacement ~₽185 (€1.85)</a></li>
+          <li><strong>Macrotrends</strong> <a href="https://www.macrotrends.net/global-metrics/countries/rus/russia/inflation-rate-cpi">Russia inflation 2024 ~8.5% YoY</a></li>
+          <li><strong>CISedu / Expatica</strong> <a href="https://www.expatica.com/ru/living/family/childcare-in-russia-106410/">Moscow public detsky sad ~₽2,400/mo (€24); private ~₽25,000 (€250)</a></li>
+          <li><strong>X-Rates / Bank of Russia</strong> <a href="https://www.cbr.ru/eng/currency_base/daily/">RUB/EUR reference rate 2024–2025 (avg ≈ 100 RUB / €)</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<footer class="colophon wrap">
+  <span>Цена жизни · Выпуск 02 · 5 стран</span>
+  <span>Подготовлено в мае 2026 · данные за 2024–2025</span>
+  <span>Нормализация валют @ €1 = 4,00 ILS · 11,5 SEK · 100 RUB · евро для FR/SK</span>
+</footer>
+
+</div><!-- /.wrap -->
+
+<script>
+(function () {
+  // ---------- Chart.js global theming ----------
+  const ink = '#ece7dc';
+  const inkDim = '#8a857a';
+  const inkFaint = '#3a3933';
+  const il = '#14b8a6';
+  const se = '#f5b400';
+  const fr = '#d6342f';
+  const ru = '#a78bfa';
+  const sk = '#fb923c';
+  const ilSoft = 'rgba(20,184,166,.18)';
+  const seSoft = 'rgba(245,180,0,.16)';
+  const frSoft = 'rgba(214,52,47,.18)';
+  const ruSoft = 'rgba(167,139,250,.18)';
+  const skSoft = 'rgba(251,146,60,.18)';
+  const COLORS = { il, se, fr, ru, sk };
+  const COUNTRIES = ['il', 'se', 'fr', 'ru', 'sk'];
+  const DATA_LABEL = { il: 'Израиль', se: 'Швеция', fr: 'Франция', ru: 'Россия', sk: 'Словакия' };
+  const CHARTS = []; // populated as each chart is built
+  const mono = "'JetBrains Mono', monospace";
+  const sans = "'Manrope', sans-serif";
+
+  Chart.defaults.font.family = sans;
+  Chart.defaults.font.size = 12;
+  Chart.defaults.color = inkDim;
+  Chart.defaults.borderColor = '#2b2c32';
+  Chart.defaults.scale.grid.color = '#1c1d22';
+  Chart.defaults.plugins.legend.labels.color = ink;
+  Chart.defaults.plugins.legend.labels.font = { family: mono, size: 10, weight: 600 };
+  Chart.defaults.plugins.tooltip = Object.assign(Chart.defaults.plugins.tooltip || {}, {
+    backgroundColor: '#15161a',
+    borderColor: '#2b2c32',
+    borderWidth: 1,
+    titleColor: ink,
+    titleFont: { family: sans, weight: 700, size: 13 },
+    bodyColor: ink,
+    bodyFont: { family: mono, size: 12 },
+    padding: 14,
+    boxPadding: 6,
+    cornerRadius: 0,
+    displayColors: true
+  });
+
+  const formatEur = (v) => '€' + Math.round(v).toLocaleString('en-US');
+  const formatPct = (v) => v + '%';
+
+  // ============ Chart 1 — Salaries ============
+  const chartSalaries = new Chart(document.getElementById('chartSalaries'), {
+    type: 'bar',
+    data: {
+      labels: ['Медиана gross', 'Медиана чистой', 'Средняя gross', 'IT-инженер gross'],
+      datasets: [
+        { label: 'Израиль', backgroundColor: il, data: [2250, 1850, 3307, 8000] },
+        { label: 'Швеция', backgroundColor: se, data: [3097, 2480, 3676, 5390] },
+        { label: 'Франция', backgroundColor: fr, data: [2735, 2190, 3470, 4883] },
+        { label: 'Россия', backgroundColor: ru, data: [565, 491, 880, 1400] },
+        { label: 'Словакия', backgroundColor: sk, data: [1500, 1140, 1580, 4000] }
+      ]
+    },
+    options: {
+      maintainAspectRatio: false,
+      indexAxis: 'x',
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: { color: inkDim, font: { family: mono, size: 11 }, callback: (v) => '€' + v.toLocaleString() },
+          grid: { color: '#1c1d22' }
+        },
+        x: {
+          ticks: { color: ink, font: { family: mono, size: 11, weight: 600 } },
+          grid: { display: false }
+        }
+      },
+      plugins: {
+        legend: { position: 'bottom', align: 'end' },
+        tooltip: { callbacks: { label: (ctx) => `${ctx.dataset.label}: ${formatEur(ctx.parsed.y)}` } }
+        // RU: y-axis tooltip
+
+      }
+    }
+  });
+
+  // ============ Chart 2 — Professions ============
+  const chartProfessions = new Chart(document.getElementById('chartProfessions'), {
+    type: 'bar',
+    data: {
+      labels: ['Кассир', 'Водитель автобуса', 'Учитель (ст. кл.)', 'Медсестра', 'Инженер-разработчик'],
+      datasets: [
+        { label: 'Израиль', backgroundColor: il, data: [1550, 2375, 2875, 3250, 8000] },
+        { label: 'Швеция', backgroundColor: se, data: [2393, 2741, 3306, 3393, 5390] },
+        { label: 'Франция', backgroundColor: fr, data: [1800, 2200, 3000, 2800, 4883] },
+        { label: 'Россия', backgroundColor: ru, data: [330, 500, 915, 768, 1400] },
+        { label: 'Словакия', backgroundColor: sk, data: [800, 1200, 1800, 1700, 4000] }
+      ]
+    },
+    options: {
+      maintainAspectRatio: false,
+      indexAxis: 'y',
+      scales: {
+        x: {
+          beginAtZero: true,
+          ticks: { color: inkDim, font: { family: mono, size: 11 }, callback: (v) => '€' + v.toLocaleString() },
+          grid: { color: '#1c1d22' }
+        },
+        y: { ticks: { color: ink, font: { family: mono, size: 11, weight: 600 } }, grid: { display: false } }
+      },
+      plugins: {
+        legend: { position: 'bottom', align: 'end' },
+        tooltip: { callbacks: { label: (ctx) => `${ctx.dataset.label}: ${formatEur(ctx.parsed.x)} / мес gross` } }
+      }
+    }
+  });
+
+  // ============ Chart 4 — Tax wedge & VAT ============
+  const chartTax = new Chart(document.getElementById('chartTax'), {
+    type: 'bar',
+    data: {
+      labels: ['Налоговый клин (одинокий, ср. зарпл., 2024)', 'Эфф. НДФЛ (медианный работник)', 'НДС (стандартная)', 'Верхняя ставка НДФЛ'],
+      datasets: [
+        { label: 'Израиль', backgroundColor: il, data: [23.9, 19, 18, 50] },
+        { label: 'Швеция', backgroundColor: se, data: [41.0, 25, 25, 52.3] },
+        { label: 'Франция', backgroundColor: fr, data: [47.0, 23, 20, 49] },
+        { label: 'Россия*', backgroundColor: ru, data: [37, 13, 20, 22] },
+        { label: 'Словакия', backgroundColor: sk, data: [42.6, 24.1, 23, 25] }
+      ]
+    },
+    options: {
+      maintainAspectRatio: false,
+      scales: {
+        y: { beginAtZero: true, max: 60, ticks: { color: inkDim, font: { family: mono, size: 11 }, callback: (v) => v + '%' }, grid: { color: '#1c1d22' } },
+        x: { ticks: { color: ink, font: { family: mono, size: 10, weight: 600 }, maxRotation: 0, autoSkip: false }, grid: { display: false } }
+      },
+      plugins: {
+        legend: { position: 'bottom', align: 'end' },
+        tooltip: { callbacks: { label: (ctx) => `${ctx.dataset.label}: ${ctx.parsed.y}%` } } // RU
+      }
+    }
+  });
+
+  // ============ Chart 5 — Monthly basket (absolute EUR) ============
+  const chartBasket = new Chart(document.getElementById('chartBasket'), {
+    type: 'bar',
+    data: {
+      labels: ['Продукты', 'Электричество', 'Вода', 'Интернет + моб.', 'Транспорт', 'Ресторан (4 раза)', 'Доп. медицина'],
+      datasets: [
+        { label: 'Израиль',  backgroundColor: il, data: [500, 88, 28, 41, 56, 92, 28] },
+        { label: 'Швеция',   backgroundColor: se, data: [250, 78, 17, 56, 89, 80, 10] },
+        { label: 'Франция',  backgroundColor: fr, data: [300, 75, 25, 45, 89, 72, 100] },
+        { label: 'Россия',   backgroundColor: ru, data: [140, 10, 5, 13, 20, 28, 5] },
+        { label: 'Словакия', backgroundColor: sk, data: [250, 60, 15, 35, 36, 50, 10] }
+      ]
+    },
+    options: {
+      maintainAspectRatio: false,
+      indexAxis: 'y',
+      scales: {
+        x: { beginAtZero: true, ticks: { color: inkDim, font: { family: mono, size: 11 }, callback: (v) => '€' + v }, grid: { color: '#1c1d22' } },
+        y: { ticks: { color: ink, font: { family: mono, size: 11, weight: 600 } }, grid: { display: false } }
+      },
+      plugins: {
+        legend: { position: 'bottom', align: 'end' },
+        tooltip: { callbacks: { label: (ctx) => `${ctx.dataset.label}: ${formatEur(ctx.parsed.x)} / мес` } }
+      }
+    }
+  });
+
+  // ============ Chart 6 — Basket % of median net ============
+  const medianNet = { il: 1850, se: 2480, fr: 2190, ru: 491, sk: 1140 };
+  const baseCosts = {
+    il: { 'Продукты': 500, 'Электричество': 88, 'Вода': 28, 'Интернет + моб.': 41, 'Транспорт': 56, 'Ресторан (4 раза)': 92, 'Доп. медицина': 28 },
+    se: { 'Продукты': 250, 'Электричество': 78, 'Вода': 17, 'Интернет + моб.': 56, 'Транспорт': 89, 'Ресторан (4 раза)': 80, 'Доп. медицина': 10 },
+    fr: { 'Продукты': 300, 'Электричество': 75, 'Вода': 25, 'Интернет + моб.': 45, 'Транспорт': 89, 'Ресторан (4 раза)': 72, 'Доп. медицина': 100 },
+    ru: { 'Продукты': 140, 'Электричество': 10, 'Вода': 5, 'Интернет + моб.': 13, 'Транспорт': 20, 'Ресторан (4 раза)': 28, 'Доп. медицина': 5 },
+    sk: { 'Продукты': 250, 'Электричество': 60, 'Вода': 15, 'Интернет + моб.': 35, 'Транспорт': 36, 'Ресторан (4 раза)': 50, 'Доп. медицина': 10 }
+  };
+  const cats = Object.keys(baseCosts.il);
+  const pctData = (ctry) => cats.map(c => +(baseCosts[ctry][c] / medianNet[ctry] * 100).toFixed(1));
+
+  const chartBasketPct = new Chart(document.getElementById('chartBasketPct'), {
+    type: 'bar',
+    data: {
+      labels: cats,
+      datasets: [
+        { label: 'Израиль', backgroundColor: il, data: pctData('il') },
+        { label: 'Швеция', backgroundColor: se, data: pctData('se') },
+        { label: 'Франция', backgroundColor: fr, data: pctData('fr') },
+        { label: 'Россия', backgroundColor: ru, data: pctData('ru') },
+        { label: 'Словакия', backgroundColor: sk, data: pctData('sk') }
+      ]
+    },
+    options: {
+      maintainAspectRatio: false,
+      indexAxis: 'y',
+      scales: {
+        x: { beginAtZero: true, ticks: { color: inkDim, font: { family: mono, size: 11 }, callback: (v) => v + '%' }, grid: { color: '#1c1d22' } },
+        y: { ticks: { color: ink, font: { family: mono, size: 11, weight: 600 } }, grid: { display: false } }
+      },
+      plugins: {
+        legend: { position: 'bottom', align: 'end' },
+        tooltip: { callbacks: { label: (ctx) => {
+          const map = { 'Израиль':'il', 'Швеция':'se', 'Франция':'fr', 'Россия':'ru', 'Словакия':'sk' };
+          const key = map[ctx.dataset.label] || 'il';
+          return `${ctx.dataset.label}: ${ctx.parsed.x}% от медианной чистой (€${medianNet[key]})`;
+        } } }
+      }
+    }
+  });
+
+  // ============ Chart 8 — Price/Income ratio ============
+  const chartPriceIncome = new Chart(document.getElementById('chartPriceIncome'), {
+    type: 'bar',
+    data: {
+      labels: [],
+      datasets: [{
+        label: 'Лет gross медианной зарплаты для покупки 4-комн.',
+        data: [],
+        backgroundColor: [],
+        borderRadius: 0
+      }]
+    },
+    options: {
+      maintainAspectRatio: false,
+      indexAxis: 'y',
+      scales: {
+        x: { beginAtZero: true, max: 50, ticks: { color: inkDim, font: { family: mono, size: 11 }, callback: (v) => v + ' лет' }, grid: { color: '#1c1d22' } },
+        y: { ticks: { color: ink, font: { family: mono, size: 12, weight: 600 } }, grid: { display: false } }
+      },
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: (ctx) => `${ctx.label}: ${ctx.parsed.x} лет gross медианной зарплаты` } }
+      }
+    }
+  });
+
+  // ============ Chart 9 — Childcare ============
+  const chartChildcare = new Chart(document.getElementById('chartChildcare'), {
+    type: 'bar',
+    data: {
+      labels: ['Гос./субсидируемый', 'Частный, полная цена'],
+      datasets: [
+        { label: 'Израиль', backgroundColor: il, data: [400, 950] },
+        { label: 'Швеция', backgroundColor: se, data: [155, 155] },
+        { label: 'Франция', backgroundColor: fr, data: [400, 700] },
+        { label: 'Россия', backgroundColor: ru, data: [24, 250] },
+        { label: 'Словакия', backgroundColor: sk, data: [50, 400] }
+      ]
+    },
+    options: {
+      maintainAspectRatio: false,
+      scales: {
+        y: { beginAtZero: true, ticks: { color: inkDim, font: { family: mono, size: 11 }, callback: (v) => '€' + v }, grid: { color: '#1c1d22' } },
+        x: { ticks: { color: ink, font: { family: mono, size: 12, weight: 600 } }, grid: { display: false } }
+      },
+      plugins: {
+        legend: { position: 'bottom', align: 'end' },
+        tooltip: { callbacks: { label: (ctx) => `${ctx.dataset.label}: ${formatEur(ctx.parsed.y)} / мес, один ребёнок` } }
+      }
+    }
+  });
+
+  // ============ Chart 10 — Big Mac + Numbeo ============
+  const chartBigMac = new Chart(document.getElementById('chartBigMac'), {
+    type: 'bar',
+    data: {
+      labels: [],
+      datasets: [
+        {
+          label: 'Биг Мак / Биг Хит (€) · янв. 2025',
+          data: [],
+          backgroundColor: [],
+          yAxisID: 'y',
+          borderRadius: 0
+        },
+        {
+          label: 'Индекс стоимости жизни Numbeo (NYC=100, без аренды)',
+          data: [],
+          backgroundColor: 'transparent',
+          borderColor: ink,
+          borderWidth: 2,
+          type: 'line',
+          yAxisID: 'y1',
+          pointBackgroundColor: ink,
+          pointRadius: 6,
+          pointHoverRadius: 8,
+          tension: 0
+        }
+      ]
+    },
+    options: {
+      maintainAspectRatio: false,
+      scales: {
+        y:  { type: 'linear', position: 'left', beginAtZero: true, max: 8, ticks: { color: inkDim, font: { family: mono, size: 11 }, callback: (v) => '€' + v.toFixed(2) }, grid: { color: '#1c1d22' }, title: { display: true, text: 'Цена Биг Мака (€)', color: inkDim, font: { family: mono, size: 10 } } },
+        y1: { type: 'linear', position: 'right', beginAtZero: true, max: 120, ticks: { color: inkDim, font: { family: mono, size: 11 }, callback: (v) => v }, grid: { display: false }, title: { display: true, text: 'Индекс Numbeo', color: inkDim, font: { family: mono, size: 10 } } },
+        x: { ticks: { color: ink, font: { family: mono, size: 13, weight: 600 } }, grid: { display: false } }
+      },
+      plugins: {
+        legend: { position: 'bottom', align: 'end' }
+      }
+    }
+  });
+
+  // ============ Chart 11 — Composite radar ============
+  const chartRadar = new Chart(document.getElementById('chartRadar'), {
+    type: 'radar',
+    data: {
+      labels: ['Зарплата (ППС)', 'Доступность аренды', 'Налоговая эффективность', 'Бесплатные услуги', 'Доступность еды', 'Равенство (выше=лучше)'],
+      datasets: [
+        { label: 'Израиль', data: [82, 28, 92, 32, 38, 36], backgroundColor: ilSoft, borderColor: il, pointBackgroundColor: il, borderWidth: 2, pointRadius: 4 },
+        { label: 'Швеция', data: [89, 72, 60, 95, 84, 86], backgroundColor: seSoft, borderColor: se, pointBackgroundColor: se, borderWidth: 2, pointRadius: 4 },
+        { label: 'Франция', data: [92, 56, 48, 78, 78, 70], backgroundColor: frSoft, borderColor: fr, pointBackgroundColor: fr, borderWidth: 2, pointRadius: 4 },
+        { label: 'Россия', data: [30, 10, 85, 55, 40, 15], backgroundColor: ruSoft, borderColor: ru, pointBackgroundColor: ru, borderWidth: 2, pointRadius: 4 },
+        { label: 'Словакия', data: [50, 35, 30, 75, 55, 95], backgroundColor: skSoft, borderColor: sk, pointBackgroundColor: sk, borderWidth: 2, pointRadius: 4 }
+      ]
+    },
+    options: {
+      maintainAspectRatio: false,
+      scales: {
+        r: {
+          beginAtZero: true,
+          max: 100,
+          angleLines: { color: '#2b2c32' },
+          grid: { color: '#1c1d22' },
+          pointLabels: { color: ink, font: { family: mono, size: 11, weight: 600 } },
+          ticks: { color: inkFaint, backdropColor: 'transparent', font: { family: mono, size: 9 }, stepSize: 25 }
+        }
+      },
+      plugins: { legend: { position: 'bottom', align: 'end' } }
+    }
+  });
+
+  // ============ Chart 12 — Family surplus ============
+  const chartSurplus = new Chart(document.getElementById('chartSurplus'), {
+    type: 'bar',
+    data: {
+      labels: [],
+      datasets: [{
+        label: 'Ежемесячный профицит / дефицит после семейной корзины · EUR',
+        data: [],
+        backgroundColor: [],
+        borderRadius: 0
+      }]
+    },
+    options: {
+      maintainAspectRatio: false,
+      indexAxis: 'y',
+      scales: {
+        x: { beginAtZero: true, ticks: { color: inkDim, font: { family: mono, size: 11 }, callback: (v) => '€' + v.toLocaleString() }, grid: { color: '#1c1d22' } },
+        y: { ticks: { color: ink, font: { family: mono, size: 12, weight: 600 } }, grid: { display: false } }
+      },
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: (ctx) => `${ctx.parsed.x < 0 ? 'Дефицит' : 'Профицит'}: ${formatEur(ctx.parsed.x)} / мес` } }
+      }
+    }
+  });
+
+  // ============ Filterable single-dataset chart data ============
+
+  const PRICE_INCOME_DATA = [
+    { c: 'ru', label: 'Москва',     val: 47.0 },
+    { c: 'sk', label: 'Братислава', val: 19.0 },
+    { c: 'il', label: 'Тель-Авив',  val: 17.0 },
+    { c: 'fr', label: 'Париж',      val: 14.0 },
+    { c: 'se', label: 'Стокгольм',  val: 11.0 }
+  ];
+
+  const BIGMAC_DATA = [
+    { c: 'il', label: 'Израиль',  bigmac: 6.10, numbeo: 76.2 },
+    { c: 'se', label: 'Швеция',   bigmac: 5.44, numbeo: 61.8 },
+    { c: 'fr', label: 'Франция',  bigmac: 5.50, numbeo: 68.2 },
+    { c: 'sk', label: 'Словакия', bigmac: 4.95, numbeo: 55.8 },
+    { c: 'ru', label: 'Россия',   bigmac: 1.85, numbeo: 52.3 }
+  ];
+
+  const SURPLUS_DATA = [
+    { c: 'se', label: 'Швеция (Стокгольм)',      val:  2037 },
+    { c: 'fr', label: 'Франция (Париж)',         val:  1332 },
+    { c: 'il', label: 'Израиль (Тель-Авив)',     val:  -193 },
+    { c: 'sk', label: 'Словакия (Братислава)',   val:  -102 },
+    { c: 'ru', label: 'Россия (Москва, аренда)', val:  -707 }
+  ];
+
+  function renderPriceIncome() {
+    const visible = PRICE_INCOME_DATA.filter(d => ACTIVE.has(d.c));
+    chartPriceIncome.data.labels = visible.map(d => d.label);
+    chartPriceIncome.data.datasets[0].data = visible.map(d => d.val);
+    chartPriceIncome.data.datasets[0].backgroundColor = visible.map(d => COLORS[d.c]);
+    chartPriceIncome.update();
+  }
+
+  function renderBigMac() {
+    const visible = BIGMAC_DATA.filter(d => ACTIVE.has(d.c));
+    chartBigMac.data.labels = visible.map(d => d.label);
+    chartBigMac.data.datasets[0].data = visible.map(d => d.bigmac);
+    chartBigMac.data.datasets[0].backgroundColor = visible.map(d => COLORS[d.c]);
+    chartBigMac.data.datasets[1].data = visible.map(d => d.numbeo);
+    chartBigMac.update();
+  }
+
+  function renderSurplus() {
+    const visible = SURPLUS_DATA.filter(d => ACTIVE.has(d.c));
+    chartSurplus.data.labels = visible.map(d => d.label);
+    chartSurplus.data.datasets[0].data = visible.map(d => d.val);
+    chartSurplus.data.datasets[0].backgroundColor = visible.map(d => COLORS[d.c]);
+    chartSurplus.update();
+  }
+
+  // ============ Filter state & application ============
+
+  const ACTIVE = new Set(COUNTRIES);
+  const MULTI_CHARTS = [chartSalaries, chartProfessions, chartTax, chartBasket, chartBasketPct, chartChildcare, chartRadar];
+
+  function applyFilter() {
+    // Multi-dataset charts: hide/show by dataset label
+    MULTI_CHARTS.forEach(chart => {
+      chart.data.datasets.forEach((ds, i) => {
+        const code = Object.keys(DATA_LABEL).find(k => ds.label && (ds.label === DATA_LABEL[k] || ds.label.startsWith(DATA_LABEL[k])));
+        if (code) chart.setDatasetVisibility(i, ACTIVE.has(code));
+      });
+      chart.update();
+    });
+
+    // Single-dataset charts: re-render
+    renderPriceIncome();
+    renderBigMac();
+    renderSurplus();
+
+    // Static HTML elements
+    COUNTRIES.forEach(c => {
+      const active = ACTIVE.has(c);
+      document.querySelectorAll(`[data-country="${c}"]`).forEach(el => {
+        el.classList.toggle('hidden', !active);
+      });
+      const pill = document.querySelector(`.filter-pill[data-toggle="${c}"]`);
+      if (pill) pill.classList.toggle('active', active);
+    });
+
+    // Update CSS grid column count
+    const n = Math.max(1, ACTIVE.size);
+    document.querySelectorAll('.verdict-grid, .stat-row, .takeaways, .free-grid').forEach(g => {
+      g.style.setProperty('--active', n);
+    });
+
+    // Update borders on free-grid last-column cells
+    document.querySelectorAll('.free-grid > div').forEach(el => el.classList.remove('last-col'));
+    document.querySelectorAll('.free-grid').forEach(grid => {
+      const rows = [];
+      let row = [];
+      Array.from(grid.children).forEach(child => {
+        if (child.classList.contains('hidden')) return;
+        row.push(child);
+        if (row.length === n + 1) { // label + n country columns
+          row[row.length - 1].classList.add('last-col');
+          rows.push(row);
+          row = [];
+        }
+      });
+    });
+  }
+
+  function toggleCountry(c) {
+    if (ACTIVE.has(c)) {
+      if (ACTIVE.size === 1) return; // Don't allow zero
+      ACTIVE.delete(c);
+    } else {
+      ACTIVE.add(c);
+    }
+    applyFilter();
+  }
+
+  function resetFilter() {
+    COUNTRIES.forEach(c => ACTIVE.add(c));
+    applyFilter();
+  }
+
+  document.querySelectorAll('.filter-pill[data-toggle]').forEach(btn => {
+    btn.addEventListener('click', () => toggleCountry(btn.dataset.toggle));
+  });
+  const resetBtn = document.querySelector('.filter-reset');
+  if (resetBtn) resetBtn.addEventListener('click', resetFilter);
+
+  // Initial render
+  applyFilter();
+
+})();
+</script>
+
+</body>
+</html>
